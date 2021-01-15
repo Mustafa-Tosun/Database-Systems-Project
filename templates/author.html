@@ -1,0 +1,141 @@
+{% extends "layout.html" %}
+{% block title %} {{ author.name }} {% endblock %}
+{% block content %}
+  <h1 class="title has-text-centered">{{author.name}}</h1>
+  {% if (author.birth and author.death) %} <h3 class="subtitle has-text-centered"> ({{ author.birth }} - {{ author.death }}) </h3>
+  {% elif author.birth %} <h3 class="subtitle has-text-centered"> ({{ author.birth }} - ?) </h3>
+  {% elif author.death %} <h3 class="subtitle has-text-centered"> (? - {{ author.death }}) </h3> {% endif %}
+  {% if author.average!=-1 %} <h3 class="subtitle has-text-centered"><span style='font-size:30px;'>&#9734;</span> {{ author.average }} </h3> {% endif %}
+  <div class="columns">
+    <div class="column is-three-fifths has-text-centered">
+      {% if poems %}
+      <h2 class="title" style="margin-left: 10%;">Poems</h2>
+      <div class="columns is-multiline is-mobile">
+        {% for poem in poems %}
+      <div class="card column is-one-quarter" style="margin-right: 5px; margin-left: 5%;">
+          <div class="card-content ">
+          <p class="title">
+            {{ poem.title }}
+          </p>
+          
+          <p class="subtitle">
+            <div style="font-family: 'Sansita Swashed', cursive;">
+            {% for para in poem.text %}
+                <p>{{para}}</p>
+            {% endfor %}
+            ...
+          </div>
+          </br>
+          {% if poem.average!=-1 %}<span style='font-size:30px;'>&#9734;</span> {{ poem.average }} {% endif %}
+          </br>
+          <a href="{{ url_for('poem_page', id=poem.id) }}">Read more...</a>
+          </p>
+          </div>
+      </div>
+      {% endfor %}
+    
+    
+    </div>
+    
+      {% endif %}
+    </div>
+    <div class="column is-one-fifths">
+      {% if comments %}
+      <h2 class="title">Comments</h2>
+
+      <div class="comments">
+        {% for comment in comments %}
+          <article class="media">
+            <div class="media-content">
+              <div class="content">
+                <p>
+                  <strong>{{ comment.realname }}</strong> <small>@{{ comment.username }}</small> <small>{{ comment.date }}</small>
+                  <br>
+                  {{ comment.text }}
+                </p>
+              </div>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+      {% endif %}
+      <h2 class="title">Add a Comment</h2>
+      <form action="" method="POST" name="comment_add">
+          {{ comment_form.csrf_token }}
+          <article class="media">
+            <div class="media-content">
+              <div class="field">
+                <p class="control">
+                    {{ comment_form.text(rows="5", cols="50", required=True,
+                    placeholder='Add a comment...') }}
+                </p>
+              </div>
+              <nav class="level">
+                <div class="level-left">
+                  <div class="level-item">
+                    <button name="btn" value="submit_comment" class="button is-info">Submit</button>
+                  </div>
+                </div>
+              </nav>
+            </div>
+          </article>
+      </form>
+    </div>
+  </div>
+
+  <div class="field is-grouped">
+    <div class="control">
+      <form action="" method="POST">
+        <button name="btn" value="edit" class="button is-primary is-small">Edit Author</button>
+      </form>
+    </div>
+  </div> 
+
+  <div class="field is-grouped">
+    <div class="control">
+      <button name="btn" value="delete" id="delete" class="button is-danger is-small">Delete Author</button>
+    </div>
+  </div> 
+
+      <!-- Modal -->
+      <div class="modal" id="x" role="dialog">
+        <div class="modal-background"></div>
+        <div class="modal-content has-background-warning py-5 px-5 has-text-centered">
+         <h3 class="title">Deleting {{author.name}}</h3>
+         <p>This action will affect all poems of {{author.name}}!</p>
+         <p>Are you sure?</p>
+         <div class="columns">
+           <div class="column is-3">
+           <form action="{{author.id}}/delete-author" method="POST" name="poem_list">     
+             <button name="btn" value="save" class="button is-danger">Delete</button>
+           </form>
+          </div>
+          <div class="column is-3" style="margin-left: 50%;">
+           <button name="btn" id="cancel" value="cancel" class="button">Cancel</button>
+          </div>
+         </div>
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+
+    <script>
+        const deleteButton = document.querySelector('#delete')
+        const cancelButton = document.querySelector('#cancel')
+        const modalBg = document.querySelector('.modal-background')
+        const modal = document.querySelector('.modal')
+
+        deleteButton.addEventListener('click', () => {
+            modal.classList.add('is-active');
+        })
+
+        cancelButton.addEventListener('click', () => {
+          modal.classList.remove('is-active');
+        })
+
+        modalBg.addEventListener('click', () => {
+            modal.classList.remove('is-active');
+        })
+
+
+    </script>
+  
+{% endblock %}

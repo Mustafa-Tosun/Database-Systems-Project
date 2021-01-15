@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block title %}Poem List{% endblock %}
+{% block content %}
+  <h1 class="title has-text-danger-dark"">Poem List</h1>
+  {% if poems %}
+  
+    <table id="poems" class="table is-striped is-narrow is-hoverable">
+      <thead>
+        <tr>
+          <th><abbr title="Title">Title</abbr></th>
+          <th><abbr title="Year">Year</abbr></th>
+          <th><abbr title="Average">Average</abbr></th>
+          <th><abbr title="Author">Author</abbr></th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for poem in poems %}
+        <tr>  
+          <td><a href="{{ url_for('poem_page', id=poem.id) }}">{{ poem.title }}</a></td>
+          <td>{% if poem.year %} {{ poem.year }} {% endif %}</td>
+          <td>{% if poem.average!=-1 %} {{ poem.average }} {% endif %}</td>
+          <td><a href="{{ url_for('author_page', id=poem.author_id) }}">{{ poem.author }}</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+
+    </table> 
+  {% endif %}
+  <script>
+    $(document).ready( function () {
+      $('#poems').DataTable();
+  } );
+  </script>
+
+{% endblock %}
+
+

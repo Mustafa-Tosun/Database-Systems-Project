@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+{% block title %}Homepage{% endblock %}
+{% block content %}
+<h1 class="title has-text-centered">Your Profile</h1>
+<div class="column is-5 is-offset-5">
+<form action="" method="POST" name="change_realname">
+    {{ form.csrf_token }}
+    <table class="table">
+        <tr>
+            <th>Username:</th>
+            <td>{{ current_user.username }}</td>
+        </tr>
+        <tr>
+            <th>Email:</th>
+            <td>{{ current_user.email }}</td>
+        </tr>        
+        <tr>
+            <th>Realname:</th>
+            <td>{{ form.realname(class='input is-narrow',
+                value=current_user.realname) }}</td>
+                {% for error in form.realname.errors %}
+            <p class="help has-background-warning">
+                {{ error }}
+            </p>
+            {% endfor %}
+        </tr>
+    </table>
+
+    <button name="btn" value="submit_change" class="button is-block is-info is-centered">
+      Submit Change
+    </button>
+</form>
+</div>
+</br>
+</br>
+{% if not current_user.is_admin %}
+<button id="delete" class="button is-danger is-small">
+    Delete Account
+</button>
+{% endif %}
+
+<!-- Modal -->
+<div class="modal" id="x" role="dialog">
+    <div class="modal-background"></div>
+    <div class="modal-content has-background-warning py-5 px-5 has-text-centered">
+     <h3 class="title">Deleting Your Account</h3>
+     <p>Are you sure?</p>
+     <div class="columns">
+       <div class="column is-3">
+       <form action="" method="POST" name="">     
+         <button name="btn" value="save" class="button is-danger">Delete</button>
+       </form>
+      </div>
+      <div class="column is-3" style="margin-left: 50%;">
+       <button name="btn" id="cancel" value="cancel" class="button">Cancel</button>
+      </div>
+     </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+
+<script>
+    const deleteButton = document.querySelector('#delete')
+        const cancelButton = document.querySelector('#cancel')
+        const modalBg = document.querySelector('.modal-background')
+        const modal = document.querySelector('.modal')
+
+        deleteButton.addEventListener('click', () => {
+            modal.classList.add('is-active');
+        })
+
+        cancelButton.addEventListener('click', () => {
+          modal.classList.remove('is-active');
+        })
+
+        modalBg.addEventListener('click', () => {
+            modal.classList.remove('is-active');
+        })
+</script>
+{% endblock %}

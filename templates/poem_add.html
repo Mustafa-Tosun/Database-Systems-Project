@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block title %}Add Poem{% endblock %}
+{% block content %}
+    <h1 class="title has-text-centered">Add Poem</h1>
+<div class="column is-4 is-offset-4">
+    <form action="" method="POST" name="poem_add">
+      {{ form.csrf_token }}
+      <div class="field">
+        <label for="title" class="label">Title</label>
+        <div class="control">
+          {{ form.title(required=True, autofocus=True,
+            class='input is-large',
+            placeholder='Title') }}
+        </div>
+
+        <label for="text" class="label">Text</label>
+        <div class="control">
+          {{ form.text(required=True, autofocus=True,
+            placeholder='text',rows="10",cols="53") }}
+        </div>
+
+        <label for="author" class="label">Author</label>
+        <div class="control">
+          {{ form.author(list='author_list', class='input is-large', autocomplete='off') }}
+          <datalist id="author_list">
+            {% for author in authors %}
+            <option value="{{ author.name }}">{{ author.name }}</option>
+            {% else %}
+            <option><b>No Author found..</b></option>
+            {% endfor %}
+          </datalist>
+        </div>
+
+        <label for="year" class="label">Year</label>
+        <div class="control">
+          {{ form.year(autofocus=True,
+            class='input is-large',
+            placeholder='year') }}
+        </div>
+      </div>
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-primary is-small">Save</button>
+        </div>
+      </div>
+    </form>
+</div>
+{% endblock %}

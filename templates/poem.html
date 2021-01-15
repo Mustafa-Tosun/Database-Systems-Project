@@ -1,0 +1,168 @@
+{% extends "layout.html" %}
+{% block title %}Poem{% endblock %}
+{% block content %}
+  <div class="columns">
+    <div class="column is-three-fifths">
+    <h1 class="title has-text-centered">{{ poem.title }}</h1>
+    <h3 class="subtitle has-text-centered">by <a href="{{ url_for('author_page', id=author.id) }}">{{ author.name }}</a></h3>
+    <div class="has-text-centered" style="font-family: 'Sansita Swashed', cursive; font-size: 20px;">
+        {% for para in poem.text %}
+            {{para}}</br>
+        {% endfor %}
+        </br>
+        </br>
+        {% if poem.year %} Year: {{ poem.year }}{% endif %}
+
+        {% if poem.average!=-1 %}<span style='font-size:30px;'>&#9734;</span> {{ poem.average }} {% endif %}
+    </div>
+  </br></br>
+
+  <div id="st" class="st"  style="margin-right: 10%;">
+    <div class="stars" style="background-color:rgba(0,0,0,.5)"></div>
+    <div class="modal-content">
+    <form action="" method="POST" name="vote">
+      {{ vote_form.csrf_token }}
+      <div class="is-rounded is-warning">
+        <fieldset class="rating">
+          <input type="radio" id="star10" name="point" value="10"/><label class = "full" for="star10"></label>
+          <input type="radio" id="star9" name="point" value="9" /><label class="full" for="star9"></label>
+          <input type="radio" id="star8" name="point" value="8" /><label class = "full" for="star8"></label>
+          <input type="radio" id="star7" name="point" value="7" /><label class="full" for="star7"></label>
+          <input type="radio" id="star6" name="point" value="6" /><label class = "full" for="star6"></label>
+          <input type="radio" id="star5" name="point" value="5" /><label class="full" for="star5"></label>
+          <input type="radio" id="star4" name="point" value="4" /><label class = "full" for="star4"></label>
+          <input type="radio" id="star3" name="point" value="3" /><label class="full" for="star3"></label>
+          <input type="radio" id="star2" name="point" value="2" /><label class = "full" for="star2"></label>
+          <input type="radio" id="star1" name="point" value="1" /><label class="full" for="star1"></label>
+      </fieldset>
+      </div>
+      <div class="field is-grouped">
+          <div class="control">
+            <button name="btn" value="submit_vote" class="button is-primary is-small">Submit Vote</button>
+          </div>
+          <form action="" method="POST" name="delete_vote">
+            <button name="btn" value="delete_vote" class="button is-warning is-small">Delete Vote</button>
+          </form>
+      </div>   
+    </form>
+
+  </div>
+  </div>
+  <div class="field is-grouped">
+    <div class="control">
+      <form action="" method="POST">
+        <button name="btn" value="edit" class="button is-primary is-small">Edit Poem</button>
+      </form>
+    </div>
+  </div> 
+  <div class="field is-grouped">
+    <div class="control">
+      <button name="btn" value="delete" id="delete" class="button is-danger is-small">Delete Poem</button>
+    </div>
+  </div> 
+    </div>
+    <div class="column is-one-fifths">
+      <h2 class="title">Comments</h2>
+      {% if comments %}
+      <div class="comments">
+        {% for comment in comments %}
+          <article class="media">
+            <div class="media-content">
+              <div class="content">
+                <p>
+                  <strong>{{ comment.realname }}</strong> <small>@{{ comment.username }}</small> <small>{{ comment.date }}</small>
+                  <br>
+                  {{ comment.text }}
+                </p>
+              </div>
+            </div>
+            {% if current_user.is_admin or current_user.id == comment.user_id %}
+            <div class="media-right">
+              <form action="{{poem.id}}/delete-comment/{{comment.id}}">
+                <button class="delete"></button>
+              </form>
+            </div>
+            {% endif %}
+          </article>
+        {% endfor %}
+      </div>
+      {% else %}
+          There are no comments..
+      {% endif %}
+ 
+    <div class="column is-three-quarters">
+      <h2 class="title">Add a Comment</h2>
+      <form action="" method="POST" name="comment_add">
+          {{ comment_form.csrf_token }}
+          <article class="media">
+            <div class="media-content">
+              <div class="field">
+                <p class="control">
+                    {{ comment_form.text(rows="5", cols="50", required=True,
+                    placeholder='Add a comment...') }}
+                </p>
+              </div>
+              <nav class="level">
+                <div class="level-left">
+                  <div class="level-item">
+                    <button name="btn" value="submit_comment" class="button is-info">Submit</button>
+                  </div>
+                </div>
+              </nav>
+            </div>
+          </article>
+      </form>
+    </div>
+    </div>
+  </div>
+
+
+
+   <!-- Modal -->
+   <div class="modal" id="x" role="dialog">
+    <div class="modal-background"></div>
+    <div class="modal-content has-background-warning py-5 px-5 has-text-centered">
+     <h3 class="title">Deleting {{poem.title}}</h3>
+     <p>Are you sure?</p>
+     <div class="columns">
+       <div class="column is-3">
+       <form action="{{author.id}}/delete-author" method="POST" name="poem_list">     
+         <button name="btn" value="save" class="button is-danger">Delete</button>
+       </form>
+      </div>
+      <div class="column is-3" style="margin-left: 50%;">
+       <button name="btn" id="cancel" value="cancel" class="button">Cancel</button>
+      </div>
+     </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+
+  <script>
+    // stars
+    const vote = '{{ vote }}'
+    var i = 1;
+    while(i<=vote){
+      document.getElementById("star"+i).checked = true;
+      i++;
+    }
+    //
+ const deleteButton = document.querySelector('#delete')
+        const cancelButton = document.querySelector('#cancel')
+        const modalBg = document.querySelector('.modal-background')
+        const modal = document.querySelector('.modal')
+
+        deleteButton.addEventListener('click', () => {
+            modal.classList.add('is-active');
+        })
+
+        cancelButton.addEventListener('click', () => {
+          modal.classList.remove('is-active');
+        })
+
+        modalBg.addEventListener('click', () => {
+            modal.classList.remove('is-active');
+        })
+  
+
+  </script>
+  {% endblock %}
