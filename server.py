@@ -50,9 +50,9 @@ def create_app():
 
 
     # Comment
-    app.add_url_rule("/poems/<int:poem_id>/new-comment", view_func=comment_add, methods=["GET", "POST"])
-    app.add_url_rule("/poems/<int:id>", view_func=comments_page)
-    app.add_url_rule("/poems/<int:poem_id>/delete-comment/<int:id>", view_func=comment_delete, methods=["GET", "POST"])
+    #app.add_url_rule("/poems/<int:poem_id>/new-comment", view_func=comment_add, methods=["GET", "POST"])
+    #app.add_url_rule("/poems/<int:id>", view_func=comments_page)
+    #app.add_url_rule("/poems/<int:poem_id>/delete-comment/<int:id>", view_func=comment_delete, methods=["GET", "POST"])
 
     #dbinit.initialize()
 
