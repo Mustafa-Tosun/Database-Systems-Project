@@ -4,7 +4,7 @@ Flask-Login==0.5.0
 Flask-MySQL==1.5.1
 Flask-MySQLdb==0.2.0
 Flask-WTF==0.14.3
-gunicorn==19.10.0
+gunicorn
 mysqlclient==1.4.6
 passlib==1.7.4
 PyMySQL==0.10.1
