@@ -25,7 +25,7 @@ def load_user(user_id):
     except:
         return None
 
-
+app = create_app()
 def create_app():
     app = Flask(__name__)
     app.config.from_object("settings")
@@ -68,5 +68,5 @@ def get_port():
     return int(os.environ.get("PORT",5000))
 
 if __name__ == "__main__":
-    app = create_app()
-    app.run(host="0.0.0.0", port=get_port(),debug=True)
+    #app = create_app()
+    app.run()
