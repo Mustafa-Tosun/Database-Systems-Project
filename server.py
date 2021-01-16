@@ -2,8 +2,8 @@ from flask import Flask
 from flask_login import LoginManager
 
 import pymysql
-connection = pymysql.connect("sql7.freemysqlhosting.net","sql7387357","KdlqtCZW85","sql7387357" )
-
+connection = pymysql.connect("remotemysql.com","ggSTCtvE2s","fALcClwcn5","ggSTCtvE2s" )
+#connection = pymysql.connect("localhost","root","root","poetica")
 import dbinit
 
 
