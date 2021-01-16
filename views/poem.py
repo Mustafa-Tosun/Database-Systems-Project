@@ -12,7 +12,7 @@ def poem_page(id):
     poem = get_poem_by_id(id)
     if poem is None:
         abort(404)
-    poem.text = poem.text.decode('utf-8')
+    #poem.text = poem.text.decode('utf-8')
     poem.text = poem.text.split('\n')
     comment_form = CommentForm()
     vote_form = VoteForm()
@@ -21,7 +21,7 @@ def poem_page(id):
     if comments != None:
         users = []
         for comment in comments:
-            comment['text'] = comment['text'].decode('utf-8')
+            #comment['text'] = comment['text'].decode('utf-8')
             user = get_user_by_id(comment['user_id'])
             comment['username'] = user.username
             comment['realname'] = user.realname

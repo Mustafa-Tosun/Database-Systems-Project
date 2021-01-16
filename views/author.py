@@ -13,14 +13,14 @@ def author_page(id):
         abort(404)
     poems = get_poems_of_author(id)
     for poem in poems:
-        poem['text'] = poem['text'].decode('utf-8')
+        #poem['text'] = poem['text'].decode('utf-8')
         poem['text'] = poem['text'].splitlines()[0:4]
     comment_form = CommentForm()
     comments = get_comments_of_author(id)
     if comments != None:
         users = []
         for comment in comments:
-            comment['text'] = comment['text'].decode('utf-8')
+            #comment['text'] = comment['text'].decode('utf-8')
             user = get_user_by_id(comment['user_id'])
             comment['username'] = user.username
             comment['realname'] = user.realname

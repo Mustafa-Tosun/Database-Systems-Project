@@ -13,11 +13,11 @@ def home_page():
     day_name = today.strftime("%A")
     top_poems = get_top_poems()
     for poem in top_poems:
-        poem['text'] = poem['text'].decode('utf-8')
+        #poem['text'] = poem['text'].decode('utf-8')
         poem['text'] = poem['text'].splitlines()[0:4]
     newest_poems = get_newest_poems()
     for poem in newest_poems:
-        poem['text'] = poem['text'].decode('utf-8')
+        #poem['text'] = poem['text'].decode('utf-8')
         poem['text'] = poem['text'].splitlines()[0:4]
     top_authors = get_top_authors()
     newest_authors = get_newest_authors()
