@@ -2,8 +2,8 @@ from flask import Flask
 from flask_login import LoginManager
 
 import pymysql
-connection = pymysql.connect("remotemysql.com","ggSTCtvE2s","fALcClwcn5","ggSTCtvE2s" )
-#connection = pymysql.connect("localhost","root","root","poetica")
+#connection = pymysql.connect("remotemysql.com","ggSTCtvE2s","fALcClwcn5","ggSTCtvE2s" )
+connection = pymysql.connect("localhost","root","root","poetica")
 import dbinit
 
 from views.user import home_page, login_page, register_page, logout_page, profile_page
@@ -27,6 +27,7 @@ def load_user(user_id):
 def create_app():
     app = Flask(__name__)
     app.config.from_object("settings")
+
     # User - Home
     app.add_url_rule("/", view_func=home_page)
     app.add_url_rule("/login", view_func=login_page, methods=["GET", "POST"])
@@ -50,9 +51,9 @@ def create_app():
 
 
     # Comment
-    #app.add_url_rule("/poems/<int:poem_id>/new-comment", view_func=comment_add, methods=["GET", "POST"])
-    #app.add_url_rule("/poems/<int:id>", view_func=comments_page)
-    #app.add_url_rule("/poems/<int:poem_id>/delete-comment/<int:id>", view_func=comment_delete, methods=["GET", "POST"])
+    app.add_url_rule("/poems/<int:poem_id>/new-comment", view_func=comment_add, methods=["GET", "POST"])
+    app.add_url_rule("/poems/<int:id>", view_func=comments_page)
+    app.add_url_rule("/poems/<int:poem_id>/delete-comment/<int:id>", view_func=comment_delete, methods=["GET", "POST"])
 
     #dbinit.initialize()
 
@@ -61,9 +62,7 @@ def create_app():
 
     return app
 
-
-
 app = create_app()
-if __name__ == "__main__":
 
+if __name__ == "__main__":
     app.run()
