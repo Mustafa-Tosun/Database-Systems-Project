@@ -60,20 +60,20 @@
 
 <script>
     const deleteButton = document.querySelector('#delete')
-        const cancelButton = document.querySelector('#cancel')
-        const modalBg = document.querySelector('.modal-background')
-        const modal = document.querySelector('.modal')
+    const cancelButton = document.querySelector('#cancel')
+    const modalBg = document.querySelector('.modal-background')
+    const modal = document.querySelector('.modal')
 
-        deleteButton.addEventListener('click', () => {
-            modal.classList.add('is-active');
-        })
+    deleteButton.addEventListener('click', () => {
+        modal.classList.add('is-active');
+    })
 
-        cancelButton.addEventListener('click', () => {
-          modal.classList.remove('is-active');
-        })
+    cancelButton.addEventListener('click', () => {
+        modal.classList.remove('is-active');
+    })
 
-        modalBg.addEventListener('click', () => {
-            modal.classList.remove('is-active');
-        })
+    modalBg.addEventListener('click', () => {
+        modal.classList.remove('is-active');
+    })
 </script>
 {% endblock %}

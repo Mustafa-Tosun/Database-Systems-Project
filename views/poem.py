@@ -94,7 +94,8 @@ def poem_edit_page(id):
         form.year.data = poem.year
         author = get_author_by_id(poem.author_id)
         form.author.data = author.name
-        return render_template("poem_edit.html", form=form)
+        authors = get_authors()
+        return render_template("poem_edit.html", form=form, authors=authors)
     else:
         if not form.validate_on_submit():
             return render_template("poem_edit.html", form=form)

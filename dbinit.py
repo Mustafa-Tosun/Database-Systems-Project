@@ -1,3 +1,4 @@
+import pymysql
 from server import connection
 INIT_STATEMENTS= [
     """CREATE TABLE IF NOT EXISTS user (
@@ -41,7 +42,7 @@ INIT_STATEMENTS= [
         PRIMARY KEY (id)
     )""",
     """CREATE TABLE IF NOT EXISTS vote (
-        point TINYINT NOT NULL,
+        point FLOAT NOT NULL,
         user_id INT UNSIGNED NOT NULL,
         poem_id INT UNSIGNED NOT NULL,
         author_id INT UNSIGNED NOT NULL,

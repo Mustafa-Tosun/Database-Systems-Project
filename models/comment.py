@@ -1,6 +1,5 @@
 import pymysql
 from server import connection
-
 class Comment:
     def __init__(self, text, date, user_id, poem_id="", author_id="", id=""):
         self.id = id

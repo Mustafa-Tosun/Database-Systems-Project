@@ -60,15 +60,15 @@ def delete_poem(id):
 
 def update_poem_avg(id):
     cursor = connection.cursor(pymysql.cursors.DictCursor)
-    query = "SELECT AVG( CAST(point as FLOAT)) FROM vote WHERE poem_id=%s"
+    query = "SELECT AVG(point) FROM vote WHERE poem_id=%s"
     cursor.execute(query, id)
     connection.commit()
     average = cursor.fetchone()
-    if average['AVG( CAST(point as FLOAT))'] == None:
-        average['AVG( CAST(point as FLOAT))'] = -1
-    print(average['AVG( CAST(point as FLOAT))'])
+    if average['AVG(point)'] == None:
+        average['AVG(point)'] = -1
+    print(average['AVG(point)'])
     query = "UPDATE poem SET average=%s WHERE id=%s"
-    cursor.execute(query, (average['AVG( CAST(point as FLOAT))'], id))
+    cursor.execute(query, (average['AVG(point)'], id))
     connection.commit()
     cursor.close()
 

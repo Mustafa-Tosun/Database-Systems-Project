@@ -3,7 +3,6 @@
 {% block content %}
   <h1 class="title has-text-danger-dark"">Poem List</h1>
   {% if poems %}
-  
     <table id="poems" class="table is-striped is-narrow is-hoverable">
       <thead>
         <tr>
@@ -23,15 +22,13 @@
         </tr>
         {% endfor %}
       </tbody>
-
     </table> 
   {% endif %}
+  
   <script>
     $(document).ready( function () {
       $('#poems').DataTable();
-  } );
+    });
   </script>
 
 {% endblock %}
-
-
