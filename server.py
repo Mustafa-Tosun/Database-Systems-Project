@@ -6,7 +6,7 @@ connection = pymysql.connect("remotemysql.com","ggSTCtvE2s","fALcClwcn5","ggSTCt
 #connection = pymysql.connect("localhost","root","root","poetica")
 import dbinit
 
-
+import os
 
 from views.user import home_page, login_page, register_page, logout_page, profile_page
 from views.author import authors_page, author_page, author_add_page, author_edit_page, author_delete_page
@@ -64,6 +64,9 @@ def create_app():
     return app
 
 
+def get_port():
+    return int(os.environ.get("PORT",5000))
+
 if __name__ == "__main__":
     app = create_app()
-    app.run(host="0.0.0.0")
+    app.run(host="0.0.0.0", port=get_port(),debug=True)
