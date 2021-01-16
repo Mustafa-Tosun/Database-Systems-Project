@@ -1,12 +1,18 @@
 from flask import Flask
 from flask_login import LoginManager
 
+import pymysql
+connection = pymysql.connect("localhost","root","root","poetica" )
+
+import dbinit
+
+
+
 from views.user import home_page, login_page, register_page, logout_page, profile_page
 from views.author import authors_page, author_page, author_add_page, author_edit_page, author_delete_page
 from views.poem import poems_page, poem_page, poem_add_page, poem_edit_page, poem_delete_page
 from views.comment import comment_add, comments_page, comment_delete
 
-import dbinit
 
 from models.user import get_user_by_id
 
@@ -22,7 +28,7 @@ def load_user(user_id):
 
 def create_app():
     app = Flask(__name__)
-
+    app.config.from_object("settings")
     # User - Home
     app.add_url_rule("/", view_func=home_page)
     app.add_url_rule("/login", view_func=login_page, methods=["GET", "POST"])
@@ -57,9 +63,6 @@ def create_app():
 
     return app
 
-def get_port():
-    return int(os.environ.get("PORT",5000))
-
 if __name__ == "__main__":
     app = create_app()
-    app.run(host="0.0.0.0",port=get_port(),debug=True)
+    app.run(host="0.0.0.0", debug=True)

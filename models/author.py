@@ -1,5 +1,5 @@
 import pymysql
-connection = pymysql.connect("sql7.freemysqlhosting.net","sql7387357","KdlqtCZW85","sql7387357" )
+from server import connection
 class Author:
     def __init__(self, name, birth=-1, death=-1, average=-1, id=""):
         self.id = id

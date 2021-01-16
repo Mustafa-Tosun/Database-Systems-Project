@@ -1,7 +1,7 @@
 from flask import current_app
 from flask_login import UserMixin
 import pymysql
-connection = pymysql.connect("sql7.freemysqlhosting.net","sql7387357","KdlqtCZW85","sql7387357" )
+from server import connection
 
 class User(UserMixin):
     def __init__(self, email, password, username="", realname="", is_admin=0, id=""):

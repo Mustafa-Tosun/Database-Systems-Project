@@ -1,6 +1,5 @@
 import pymysql
-connection = pymysql.connect("sql7.freemysqlhosting.net","sql7387357","KdlqtCZW85","sql7387357" )
-
+from server import connection
 class Vote:
     def __init__(self, point, user_id, poem_id, author_id):
         self.point = point

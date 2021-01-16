@@ -1,5 +1,4 @@
-import pymysql
-connection = pymysql.connect("sql7.freemysqlhosting.net","sql7387357","KdlqtCZW85","sql7387357" )
+from server import connection
 INIT_STATEMENTS= [
     """CREATE TABLE IF NOT EXISTS user (
         id INT UNSIGNED NOT NULL AUTO_INCREMENT,
