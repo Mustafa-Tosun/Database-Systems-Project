@@ -18,13 +18,4 @@ PyOpenGL==3.0.2
 pyOpenSSL==0.15.1
 pyparsing==2.0.3
 pyserial==3.0.1
-python-apt==1.1.0b1+ubuntu0.16.4.11
-python-dateutil==2.4.2
-python-debian==0.1.27
-python-qt-binding==0.3.7
-python-snappy==0.5
-pytz==2014.10
-pyxdg==0.25
-PyYAML==3.11
-virtualenv==15.0.1
 WTForms==2.3.3
