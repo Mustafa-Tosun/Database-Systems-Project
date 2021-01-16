@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_login import LoginManager
 
-from views.user import home_page, login_page, register_page, logout_page, profile_page, deneme_page 
+from views.user import home_page, login_page, register_page, logout_page, profile_page
 from views.author import authors_page, author_page, author_add_page, author_edit_page, author_delete_page
 from views.poem import poems_page, poem_page, poem_add_page, poem_edit_page, poem_delete_page
 from views.comment import comment_add, comments_page, comment_delete
@@ -50,9 +50,6 @@ def create_app():
     app.add_url_rule("/poems/<int:poem_id>/new-comment", view_func=comment_add, methods=["GET", "POST"])
     app.add_url_rule("/poems/<int:id>", view_func=comments_page)
     app.add_url_rule("/poems/<int:poem_id>/delete-comment/<int:id>", view_func=comment_delete, methods=["GET", "POST"])
-
-    # SIL BUNU
-    app.add_url_rule("/deneme", view_func=deneme_page) ##
 
     dbinit.initialize()
 

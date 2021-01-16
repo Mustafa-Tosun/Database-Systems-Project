@@ -1,5 +1,5 @@
 import pymysql
-connection = pymysql.connect("localhost","root","root","poetica")
+connection = pymysql.connect("sql7.freemysqlhosting.net","sql7387357","KdlqtCZW85","sql7387357" )
 
 class Poem:
     def __init__(self, title, text, author_id, year=-1, average=-1, id=""):

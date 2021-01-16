@@ -4,7 +4,7 @@
     <h1 class="title has-text-danger-dark">Top Rated Poems</h1>
 <div class="columns">
     {% for poem in top_poems %}
-    <div class="card column is-one-fifth">
+    <div class="card column is-2" style="margin-left: 40px; background-color:wheat">
         <div class="card-content ">
         <p class="title">
           {{ poem.title }}
@@ -30,7 +30,7 @@
     <h1 class="title has-text-danger-dark">Newest Poems</h1>
     <div class="columns">
         {% for poem in newest_poems %}
-        <div class="card column is-one-fifth">
+        <div class="card column is-2" style="margin-left: 40px; background-color:wheat">
             <div class="card-content ">
             <p class="title">
               {{ poem.title }}
@@ -56,9 +56,9 @@
     <h1 class="title has-text-danger-dark">Top Rated Authors</h1>
     <div class="columns">
         {% for author in top_authors %}
-        <div class="card column is-one-fifth">
+        <div class="card column is-2" style="margin-left: 40px; background-color:wheat">
             <div class="card-content ">
-            <p class="title">
+            <p class="subtitle">
                 <a href="{{ url_for('author_page', id=author.id) }}">{{ author.name }}</a>
             </p>
             
@@ -74,9 +74,9 @@
     <h1 class="title has-text-danger-dark">Newest Authors</h1>
     <div class="columns">
         {% for author in newest_authors %}
-        <div class="card column is-one-fifth">
+        <div class="card column is-2" style="margin-left: 40px; background-color:wheat">
             <div class="card-content ">
-            <p class="title">
+            <p class="subtitle">
                 <a href="{{ url_for('author_page', id=author.id) }}">{{ author.name }}</a>
             </p>
             

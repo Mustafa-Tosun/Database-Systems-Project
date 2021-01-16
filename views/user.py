@@ -7,10 +7,6 @@ from models.author import get_top_authors, get_newest_authors
 from forms import LoginForm, RegisterForm, UpdateUserForm
 from passlib.hash import pbkdf2_sha256 as hasher
 
-# SIL BUNU
-def deneme_page():
-    return render_template("deneme.html")
-
 
 def home_page():
     today = datetime.today()
