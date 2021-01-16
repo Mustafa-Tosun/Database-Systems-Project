@@ -18,7 +18,6 @@ PyOpenGL==3.0.2
 pyOpenSSL==0.15.1
 pyparsing==2.0.3
 pyserial==3.0.1
-Pyste==0.9.10
 python-apt==1.1.0b1+ubuntu0.16.4.11
 python-dateutil==2.4.2
 python-debian==0.1.27
