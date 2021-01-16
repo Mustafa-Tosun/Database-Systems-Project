@@ -56,7 +56,7 @@ def create_app():
     app.add_url_rule("/poems/<int:id>", view_func=comments_page)
     app.add_url_rule("/poems/<int:poem_id>/delete-comment/<int:id>", view_func=comment_delete, methods=["GET", "POST"])
 
-    dbinit.initialize()
+    #dbinit.initialize()
 
     lm.init_app(app)
     lm.login_view = "login_page"
@@ -67,6 +67,7 @@ def create_app():
 def get_port():
     return int(os.environ.get("PORT",5000))
 
+app = create_app()
 if __name__ == "__main__":
-    app = create_app()
+
     app.run()
