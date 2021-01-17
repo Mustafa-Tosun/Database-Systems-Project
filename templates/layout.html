@@ -12,11 +12,9 @@
 <body>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+  <div class="container">
     <header>
-      {% for message in get_flashed_messages() %}
-      <div class="notification is-info">{{ message }}</div>
-      {% endfor %}
-        
+
         <nav class="navbar" role="navigation" aria-label="main navigation">
           <div class="navbar-brand">
             <img src="../static/logo.jpg" width="70" height="20">
@@ -79,9 +77,14 @@
         </nav>
       </header>
       <br>
+      {% for message in get_flashed_messages() %}
+      <div class="notification is-info">{{ message }}</div>
+      {% endfor %}
+        
     {% block content %}{% endblock %}
     <footer>
         <small>&copy; 2021 Mustafa Tosun</small>
     </footer>
+    </div>
 </body>
 </html>
