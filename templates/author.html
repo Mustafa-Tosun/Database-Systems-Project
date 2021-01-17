@@ -94,6 +94,7 @@
     {% endif %}
   </div>
 
+  {% if current_user.is_admin %}
   <div class="field is-grouped">
     <div class="control">
       <form action="" method="POST">
@@ -106,7 +107,8 @@
     <div class="control">
       <button name="btn" value="delete" id="delete" class="button is-danger is-small">Delete Author</button>
     </div>
-  </div> 
+  </div>
+  {% endif %}
 
       <!-- Modal -->
       <div class="modal" id="x" role="dialog">

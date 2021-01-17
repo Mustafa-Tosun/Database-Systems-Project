@@ -54,19 +54,21 @@
     </form>
     {% endif %}
 
-  <div class="field is-grouped">
-    <div class="control">
-      <form action="" method="POST">
-        <button name="btn" value="edit" class="button is-primary is-small">Edit Poem</button>
-      </form>
+  {% if current_user.is_admin %}
+    <div class="field is-grouped">
+      <div class="control">
+        <form action="" method="POST">
+          <button name="btn" value="edit" class="button is-primary is-small">Edit Poem</button>
+        </form>
+      </div>
+    </div> 
+    <div class="field is-grouped">
+      <div class="control">
+        <button name="btn" value="delete" id="delete" class="button is-danger is-small">Delete Poem</button>
+      </div>
     </div>
-  </div> 
-  <div class="field is-grouped">
-    <div class="control">
-      <button name="btn" value="delete" id="delete" class="button is-danger is-small">Delete Poem</button>
-    </div>
-  </div> 
-    </div>
+  {% endif %} 
+  </div>
     <div class="column is-one-fifths">
       <h2 class="title">Comments</h2>
       {% if comments %}
