@@ -1,8 +1,8 @@
 from flask import current_app, render_template, request, redirect, url_for, flash, abort
 from flask_login import login_required, login_user, current_user, logout_user
 from forms import PoemForm, CommentForm, VoteForm
-from models.poem import Poem, add_poem, get_poem_by_id, get_poems, update_poem, delete_poem
-from models.author import get_author_by_name, get_author_by_id, get_authors
+from models.poem import Poem, add_poem, get_poem_by_id, get_poems, update_poem, delete_poem, get_author_id_of_poem
+from models.author import get_author_by_name, get_author_by_id, get_authors, update_author_avg
 from models.user import get_user_by_id
 from models.vote import get_votes, get_vote
 from views.comment import comment_add, comments_page
@@ -112,5 +112,7 @@ def poem_edit_page(id):
 def poem_delete_page(id):
     if not current_user.is_admin:
         abort(401)
-    delete_poem(id)
+    author_id = get_author_id_of_poem(id)
+    delete_poem(id) 
+    update_author_avg(author_id)
     return redirect(url_for("poems_page"))

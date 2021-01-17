@@ -107,3 +107,15 @@ def get_newest_poems():
         poems = None
     cursor.close()
     return poems
+
+def get_author_id_of_poem(id):
+    cursor = connection.cursor()
+    query = "SELECT author_id FROM poem WHERE id=%s"
+    cursor.execute(query, id)
+    connection.commit()
+    try:
+        author_id = cursor.fetchone()
+    except:
+        author_id = None
+    cursor.close()
+    return author_id
