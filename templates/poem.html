@@ -93,9 +93,11 @@
       {% else %}
           There are no comments..
       {% endif %}
- 
+      
+
     <div class="column is-three-quarters">
       <h2 class="title">Add a Comment</h2>
+      {% if current_user.is_authenticated %}
       <form action="" method="POST" name="comment_add">
           {{ comment_form.csrf_token }}
           <article class="media">
@@ -116,7 +118,11 @@
             </div>
           </article>
       </form>
+      {% else %}
+      You must log in to add comments.
+      {% endif %}
     </div>
+
     </div>
   </div>
 
