@@ -2,8 +2,9 @@ from flask import Flask
 from flask_login import LoginManager
 
 import pymysql
+connection = pymysql.connect("poeticadb.cl0hfbdfwgc5.us-east-1.rds.amazonaws.com","radiohead","karmapolice","poetica")
 #connection = pymysql.connect("remotemysql.com","ggSTCtvE2s","fALcClwcn5","ggSTCtvE2s" )
-connection = pymysql.connect("localhost","root","root","poetica")
+#connection = pymysql.connect("localhost","root","root","poetica")
 import dbinit
 
 from views.user import home_page, login_page, register_page, logout_page, profile_page
