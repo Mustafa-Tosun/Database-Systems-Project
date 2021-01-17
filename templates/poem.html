@@ -19,6 +19,7 @@
       {% if poem.average!=-1 %}<span style='font-size:30px;'>&#9734;</span> {{ poem.average }} {% endif %}
     </div>
     </br></br>
+    {% if current_user.is_authenticated %}
     <form action="" method="POST" name="vote">
       {{ vote_form.csrf_token }}
       <div id="st" class="st">
@@ -50,7 +51,8 @@
           <button name="btn" value="delete_vote" class="button is-warning is-small">Delete Vote</button>
         </form>
       </div>  
-  </form>
+    </form>
+    {% endif %}
 
   <div class="field is-grouped">
     <div class="control">
@@ -94,10 +96,9 @@
           There are no comments..
       {% endif %}
       
-
+      {% if current_user.is_authenticated %}
     <div class="column is-three-quarters">
       <h2 class="title">Add a Comment</h2>
-      {% if current_user.is_authenticated %}
       <form action="" method="POST" name="comment_add">
           {{ comment_form.csrf_token }}
           <article class="media">
@@ -118,11 +119,8 @@
             </div>
           </article>
       </form>
-      {% else %}
-      You must log in to add comments.
-      {% endif %}
     </div>
-
+    {% endif %}
     </div>
   </div>
 
