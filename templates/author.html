@@ -40,9 +40,8 @@
       {% endif %}
     </div>
     <div class="column is-one-fifths">
-      {% if comments %}
       <h2 class="title">Comments</h2>
-
+      {% if comments %}
       <div class="comments">
         {% for comment in comments %}
           <article class="media">
@@ -55,9 +54,18 @@
                 </p>
               </div>
             </div>
+            {% if current_user.is_admin or current_user.id == comment.user_id %}
+            <div class="media-right">
+              <form action="{{author.id}}/delete-comment/{{comment.id}}">
+                <button class="delete"></button>
+              </form>
+            </div>
+            {% endif %}
           </article>
         {% endfor %}
       </div>
+      {% else %}
+          There are no comments..
       {% endif %}
       <h2 class="title">Add a Comment</h2>
       <form action="" method="POST" name="comment_add">

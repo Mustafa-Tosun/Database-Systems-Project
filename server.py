@@ -10,7 +10,7 @@ import dbinit
 from views.user import home_page, login_page, register_page, logout_page, profile_page
 from views.author import authors_page, author_page, author_add_page, author_edit_page, author_delete_page
 from views.poem import poems_page, poem_page, poem_add_page, poem_edit_page, poem_delete_page
-from views.comment import comment_add, comments_page, comment_delete
+from views.comment import comment_delete, comment_delete_author
 
 
 from models.user import get_user_by_id
@@ -52,10 +52,9 @@ def create_app():
 
 
     # Comment
-    app.add_url_rule("/poems/<int:poem_id>/new-comment", view_func=comment_add, methods=["GET", "POST"])
-    app.add_url_rule("/poems/<int:id>", view_func=comments_page)
+    #app.add_url_rule("/poems/<int:poem_id>/new-comment", view_func=comment_add, methods=["GET", "POST"])
     app.add_url_rule("/poems/<int:poem_id>/delete-comment/<int:id>", view_func=comment_delete, methods=["GET", "POST"])
-
+    app.add_url_rule("/authors/<int:author_id>/delete-comment/<int:id>", view_func=comment_delete_author, methods=["GET", "POST"])
     #dbinit.initialize()
 
     lm.init_app(app)
@@ -66,4 +65,4 @@ def create_app():
 app = create_app()
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

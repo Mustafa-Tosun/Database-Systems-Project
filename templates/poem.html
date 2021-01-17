@@ -11,43 +11,47 @@
         {% endfor %}
         </br>
         </br>
-        {% if poem.year %} Year: {{ poem.year }}{% endif %}
-
-        {% if poem.average!=-1 %}<span style='font-size:30px;'>&#9734;</span> {{ poem.average }} {% endif %}
+        
     </div>
-  </br></br>
-
-  <div id="st" class="st"  style="margin-right: 10%;">
-    <div class="stars" style="background-color:rgba(0,0,0,.5)"></div>
-    <div class="modal-content">
+    <div class="has-text-centered">
+      {% if poem.year %} Year: {{ poem.year }}{% endif %}
+    </br>
+      {% if poem.average!=-1 %}<span style='font-size:30px;'>&#9734;</span> {{ poem.average }} {% endif %}
+    </div>
+    </br></br>
     <form action="" method="POST" name="vote">
       {{ vote_form.csrf_token }}
-      <div class="is-rounded is-warning">
-        <fieldset class="rating">
-          <input type="radio" id="star10" name="point" value="10"/><label class = "full" for="star10"></label>
-          <input type="radio" id="star9" name="point" value="9" /><label class="full" for="star9"></label>
-          <input type="radio" id="star8" name="point" value="8" /><label class = "full" for="star8"></label>
-          <input type="radio" id="star7" name="point" value="7" /><label class="full" for="star7"></label>
-          <input type="radio" id="star6" name="point" value="6" /><label class = "full" for="star6"></label>
-          <input type="radio" id="star5" name="point" value="5" /><label class="full" for="star5"></label>
-          <input type="radio" id="star4" name="point" value="4" /><label class = "full" for="star4"></label>
-          <input type="radio" id="star3" name="point" value="3" /><label class="full" for="star3"></label>
-          <input type="radio" id="star2" name="point" value="2" /><label class = "full" for="star2"></label>
-          <input type="radio" id="star1" name="point" value="1" /><label class="full" for="star1"></label>
-      </fieldset>
-      </div>
-      <div class="field is-grouped">
-          <div class="control">
-            <button name="btn" value="submit_vote" class="button is-primary is-small">Submit Vote</button>
+      <div id="st" class="st">
+        <div class="stars" style="background-color:rgba(0,0,0,.5)"></div>
+        <div class="modal-content">
+          <div class="is-rounded is-warning" style="margin-left: 30%;">
+            <fieldset class="rating">
+              <input type="radio" id="star10" name="point" value="10"/><label class = "full" for="star10"></label>
+              <input type="radio" id="star9" name="point" value="9" /><label class="full" for="star9"></label>
+              <input type="radio" id="star8" name="point" value="8" /><label class = "full" for="star8"></label>
+              <input type="radio" id="star7" name="point" value="7" /><label class="full" for="star7"></label>
+              <input type="radio" id="star6" name="point" value="6" /><label class = "full" for="star6"></label>
+              <input type="radio" id="star5" name="point" value="5" /><label class="full" for="star5"></label>
+              <input type="radio" id="star4" name="point" value="4" /><label class = "full" for="star4"></label>
+              <input type="radio" id="star3" name="point" value="3" /><label class="full" for="star3"></label>
+              <input type="radio" id="star2" name="point" value="2" /><label class = "full" for="star2"></label>
+              <input type="radio" id="star1" name="point" value="1" /><label class="full" for="star1"></label>
+            </fieldset>
           </div>
-          <form action="" method="POST" name="delete_vote">
-            <button name="btn" value="delete_vote" class="button is-warning is-small">Delete Vote</button>
-          </form>
-      </div>   
-    </form>
+          <br/>
+        </div>
+      </div>
+      <div class="field is-grouped" style="margin-left: 40%;">
+        </br>
+        <div class="control">
+          <button name="btn" value="submit_vote" class="button is-primary is-small">Submit Vote</button>
+        </div>
+        <form action="" method="POST" name="delete_vote">
+          <button name="btn" value="delete_vote" class="button is-warning is-small">Delete Vote</button>
+        </form>
+      </div>  
+  </form>
 
-  </div>
-  </div>
   <div class="field is-grouped">
     <div class="control">
       <form action="" method="POST">
@@ -137,32 +141,29 @@
     </div>
     <button class="modal-close is-large" aria-label="close"></button>
 
-  <script>
-    // stars
-    const vote = '{{ vote }}'
-    var i = 1;
-    while(i<=vote){
-      document.getElementById("star"+i).checked = true;
-      i++;
-    }
-    //
- const deleteButton = document.querySelector('#delete')
-        const cancelButton = document.querySelector('#cancel')
-        const modalBg = document.querySelector('.modal-background')
-        const modal = document.querySelector('.modal')
+<script>
+  // stars
+  const vote = '{{ vote }}'
+  var i = 1;
+  while(i<=vote){
+    document.getElementById("star"+i).checked = true;
+    i++;
+  }
+  //
+  const deleteButton = document.querySelector('#delete');
+  const cancelButton = document.querySelector('#cancel');
+  const modalBg = document.querySelector('.modal-background');
+  const modal = document.querySelector('.modal');
 
-        deleteButton.addEventListener('click', () => {
-            modal.classList.add('is-active');
-        })
-
-        cancelButton.addEventListener('click', () => {
-          modal.classList.remove('is-active');
-        })
-
-        modalBg.addEventListener('click', () => {
-            modal.classList.remove('is-active');
-        })
+  deleteButton.addEventListener('click', () => {
+    modal.classList.add('is-active');
+  });
+  cancelButton.addEventListener('click', () => {
+    modal.classList.remove('is-active');
+  });
+  modalBg.addEventListener('click', () => {
+    modal.classList.remove('is-active');
+  });
+</script>
   
-
-  </script>
-  {% endblock %}
+{% endblock %}

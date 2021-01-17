@@ -8,13 +8,13 @@ from datetime import datetime
 def comment_add(poem_id):
     form = CommentForm()
     if not form.validate_on_submit():
-        return redirect(url_for("poem_page", poem_id=poem_id))
+        return redirect(url_for("poem_page", id=poem_id))
     text = form.data["text"]
     date = datetime.now()
     user_id = current_user.id
     comment = Comment(text=text, date=date, user_id=user_id, poem_id=poem_id)
     add_comment(comment)
-    return redirect(url_for("poem_page", poem_id=poem_id))
+    return redirect(url_for("poem_page", id=poem_id))
 
 @login_required
 def comment_add_author(author_id):
@@ -39,3 +39,11 @@ def comment_delete(poem_id, id):
         abort(401)
     delete_comment(id)
     return redirect(url_for("poem_page", id=poem_id))
+
+@login_required
+def comment_delete_author(author_id, id):
+    user_id = get_user_id_of_comment(id)
+    if not current_user.is_admin or current_user.id != user_id:
+        abort(401)
+    delete_comment(id)
+    return redirect(url_for("author_page", id=author_id))
