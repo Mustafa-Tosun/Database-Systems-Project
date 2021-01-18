@@ -20,6 +20,15 @@
     </div>
     </br></br>
     {% if current_user.is_authenticated %}
+    <form action="" method="POST" name="favorite">
+      <button name="btn" value="favorite" class="button">
+        <span class="icon is-small">
+          <i class="check"></i>
+        </span>
+        <span>Add to Favorites</span>
+      </button>
+    </form>
+    </br>
     <form action="" method="POST" name="vote">
       {{ vote_form.csrf_token }}
       <div id="st" class="st">

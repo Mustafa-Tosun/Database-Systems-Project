@@ -66,7 +66,6 @@ def update_poem_avg(id):
     average = cursor.fetchone()
     if average['AVG(point)'] == None:
         average['AVG(point)'] = -1
-    print(average['AVG(point)'])
     query = "UPDATE poem SET average=%s WHERE id=%s"
     cursor.execute(query, (average['AVG(point)'], id))
     connection.commit()

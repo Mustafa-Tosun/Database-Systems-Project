@@ -1,0 +1,8 @@
+{% extends "layout.html" %}
+{% block title %}My Favorites{% endblock %}
+{% block content %}
+{% for favorite in favorites %}
+{{ favorite.poem_id }}
+{{ favorite.author_id }}
+{% endfor %}
+{% endblock %}

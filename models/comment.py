@@ -17,7 +17,6 @@ def add_comment(comment):
     cursor.close()
 
 def add_comment_author(comment):
-    print("aaa")
     cursor = connection.cursor()
     query = "INSERT INTO comment(text, date, user_id, author_id, poem_id) VALUES(%s, %s, %s, %s, NULL)"
     cursor.execute(query, (comment.text, comment.date, comment.user_id, comment.author_id))

@@ -1,5 +1,5 @@
 from flask import current_app, render_template, request, redirect, url_for, flash, abort, session
-from flask_login import login_required, login_user, current_user, logout_user
+from flask_login import login_required, login_user, current_user
 from forms import AuthorForm, CommentForm
 from models.author import Author, add_author, update_author, delete_author, get_author_by_id, get_authors
 from models.poem import get_poems_of_author

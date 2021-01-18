@@ -51,6 +51,13 @@ INIT_STATEMENTS= [
         FOREIGN KEY (author_id) REFERENCES author(id) ON DELETE CASCADE ON UPDATE CASCADE,
         PRIMARY KEY (user_id, poem_id)
     )""",
+    """CREATE TABLE IF NOT EXISTS favorite (
+        user_id INT UNSIGNED NOT NULL,
+        poem_id INT UNSIGNED NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE ON UPDATE CASCADE,
+        FOREIGN KEY (poem_id) REFERENCES poem(id) ON DELETE CASCADE ON UPDATE CASCADE,
+        PRIMARY KEY (user_id, poem_id)
+    )""",
     """INSERT IGNORE INTO user(username, email, password, realname, is_admin) 
             VALUES("admin", "admin@gmail.com", "$pbkdf2-sha256$29000$kbI2RojxHoMQolSqdW5N6Q$G16Y2pCtj3qd2lTJ/26Lh8BOnebs2l/aQ6O9qYZJLVM", "Mustafa Tosun", "1")"""
 ]
