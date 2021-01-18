@@ -121,7 +121,7 @@ def get_author_id_of_poem(id):
 
 def check_author_poem(author_id, poem_title):
     cursor = connection.cursor()
-    query = "SELECT poem_id FROM poem WHERE author_id=%s AND title=%s"
+    query = "SELECT id FROM poem WHERE author_id=%s AND title=%s"
     cursor.execute(query, (author_id, poem_title))
     try:
         poem_id = cursor.fetchone()
