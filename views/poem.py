@@ -1,11 +1,11 @@
 from flask import current_app, render_template, request, redirect, url_for, flash, abort
 from flask_login import login_required, login_user, current_user, logout_user
 from forms import PoemForm, CommentForm, VoteForm
-from models.poem import Poem, add_poem, get_poem_by_id, get_poems, update_poem, delete_poem, get_author_id_of_poem
+from models.poem import Poem, add_poem, get_poem_by_id, get_poems, update_poem, delete_poem, get_author_id_of_poem, check_author_poem
 from models.author import get_author_by_name, get_author_by_id, get_authors, update_author_avg
 from models.user import get_user_by_id
 from models.vote import get_votes, get_vote
-from models.favorite import add_favorite
+from models.favorite import add_favorite, favorite_check, delete_favorite
 from views.comment import comment_add, comments_page
 from views.vote import vote_add, vote_delete
 
@@ -31,7 +31,8 @@ def poem_page(id):
             vote = get_vote(user_id=current_user.id, poem_id=id)
         else:
             vote = None
-        return render_template("poem.html", poem=poem, comment_form=comment_form, comments=comments, vote_form=vote_form, vote=vote, author=author)
+        check = favorite_check(current_user.id, id)
+        return render_template("poem.html", poem=poem, comment_form=comment_form, comments=comments, vote_form=vote_form, vote=vote, author=author, check=check)
     else:
         if request.form['btn'] == 'edit':
             return redirect(url_for("poem_edit_page", id=id))
@@ -43,7 +44,10 @@ def poem_page(id):
             vote_delete(id, poem.author_id)
         if request.form['btn'] == 'favorite':
             flash("Poem added to your favorites.")
-            add_favorite(current_user.id, poem.id)
+            add_favorite(current_user.id, id)
+        if request.form['btn'] == 'remove_favorite':
+            flash("Poem removed from your favorites.")
+            delete_favorite(current_user.id, id)
         return redirect(url_for("poem_page", id=id))
 
 def poems_page():
@@ -77,7 +81,11 @@ def poem_add_page():
         author_name = form.data["author"]
         author_id = get_author_by_name(author_name)
         if(author_id == None):
-            flash("Check author name!")
+            flash("Check author name!", 'is-danger')
+            return render_template("poem_add.html", form=form)
+        check = check_author_poem(author_id, title)
+        if check:
+            flash("Poem is already in database!", 'is-danger')
             return render_template("poem_add.html", form=form)
         poem = Poem(title=title, text=text, author_id=author_id, year=year)
         id = add_poem(poem)

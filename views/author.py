@@ -62,8 +62,13 @@ def author_add_page():
         birth = form.data["birth"]
         death = form.data["death"]
         author = Author(name=name, birth=birth, death=death)
-        id = add_author(author)
-        return redirect(url_for("author_page", id=id))
+        try:
+            id = add_author(author)
+            return redirect(url_for("author_page", id=id))
+        except:
+            flash("Author is already in database!", 'is-danger')
+            return render_template("author_add.html", form=form)
+        
 
 @login_required
 def author_edit_page(id):

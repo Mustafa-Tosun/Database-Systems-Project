@@ -20,7 +20,8 @@
     </div>
     </br></br>
     {% if current_user.is_authenticated %}
-    <form action="" method="POST" name="favorite">
+    {% if check==1 %}
+    <form action="" method="POST" name="add_favorite">
       <button name="btn" value="favorite" class="button">
         <span class="icon is-small">
           <i class="check"></i>
@@ -28,6 +29,16 @@
         <span>Add to Favorites</span>
       </button>
     </form>
+    {% else %}
+    <form action="" method="POST" name="remove_favorite">
+      <button name="btn" value="remove_favorite" class="button is-danger is-outlined">
+        <span>Delete</span>
+        <span class="icon is-small">
+          <i class="fas fa-times"></i>
+        </span>
+      </button>
+    </form>
+    {% endif %}
     </br>
     <form action="" method="POST" name="vote">
       {{ vote_form.csrf_token }}

@@ -118,3 +118,14 @@ def get_author_id_of_poem(id):
         author_id = None
     cursor.close()
     return author_id
+
+def check_author_poem(author_id, poem_title):
+    cursor = connection.cursor()
+    query = "SELECT poem_id FROM poem WHERE author_id=%s AND title=%s"
+    cursor.execute(query, (author_id, poem_title))
+    try:
+        poem_id = cursor.fetchone()
+    except:
+        poem_id = None
+    cursor.close()
+    return poem_id

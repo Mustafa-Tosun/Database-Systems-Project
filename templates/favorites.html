@@ -1,8 +1,33 @@
 {% extends "layout.html" %}
 {% block title %}My Favorites{% endblock %}
 {% block content %}
-{% for favorite in favorites %}
-{{ favorite.poem_id }}
-{{ favorite.author_id }}
-{% endfor %}
+<h1 class="title has-text-danger-dark"">My Favorite Poems</h1>
+  {% if favorites %}
+    <table id="favorites" class="table is-striped is-narrow is-hoverable">
+      <thead>
+        <tr>
+          <th><abbr title="Title">Title</abbr></th>
+          <th><abbr title="Year">Year</abbr></th>
+          <th><abbr title="Average">Average</abbr></th>
+          <th><abbr title="Author">Author</abbr></th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for favorite in favorites %}
+        <tr>  
+          <td><a href="{{ url_for('poem_page', id=favorite.poem_id) }}">{{ favorite.title }}</a></td>
+          <td>{% if favorite.year %} {{ favorite.year }} {% endif %}</td>
+          <td>{% if favorite.average!=-1 %} {{ favorite.average }} {% endif %}</td>
+          <td><a href="{{ url_for('author_page', id=favorite.author_id) }}">{{ favorite.name }}</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table> 
+  {% endif %}
+
+  <script>
+    $(document).ready( function () {
+      $('#favorites').DataTable();
+    });
+  </script>
 {% endblock %}
