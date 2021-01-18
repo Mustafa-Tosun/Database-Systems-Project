@@ -25,7 +25,7 @@ def add_comment_author(comment):
 
 def get_comments(poem_id):
     cursor = connection.cursor(pymysql.cursors.DictCursor)
-    query = "SELECT * FROM comment WHERE poem_id=%s ORDER BY id DESC"
+    query = "SELECT text,date,user_id,user.username ,user.realname FROM comment JOIN user ON comment.user_id=user.id WHERE poem_id=%s ORDER BY comment.id DESC"
     cursor.execute(query, poem_id)
     connection.commit()
     try:
@@ -35,13 +35,6 @@ def get_comments(poem_id):
     cursor.close()
     return comments
 
-def delete_comments(poem_id):
-    cursor = connection.cursor()
-    query = "DELETE FROM comment WHERE poem_id=%s"
-    cursor.execute(query, (poem_id))
-    connection.commit()
-    cursor.close()
-
 def delete_comment(id):
     cursor = connection.cursor()
     query = "DELETE FROM comment WHERE id=%s"
@@ -49,18 +42,9 @@ def delete_comment(id):
     connection.commit()
     cursor.close()
 
-def get_user_id_of_comment(id):
-    cursor = connection.cursor()
-    query = "SELECT user_id FROM comment WHERE id=%s"
-    cursor.execute(query, id)
-    connection.commit()
-    user_id = cursor.fetchone()
-    cursor.close()
-    return user_id[0]
-
 def get_comments_of_author(author_id):
     cursor = connection.cursor(pymysql.cursors.DictCursor)
-    query = "SELECT * FROM comment WHERE author_id=%s ORDER BY id DESC"
+    query = "SELECT text,date,user_id,user.username, user.realname FROM comment JOIN user ON comment.user_id=user.id WHERE author_id=%s ORDER BY comment.id DESC"
     cursor.execute(query, author_id)
     connection.commit()
     try:

@@ -67,3 +67,21 @@ def delete_user(id):
     cursor.execute(query, id)
     connection.commit()
     cursor.close()
+
+def check_username(username):
+    cursor = connection.cursor()
+    query = "SELECT id FROM user WHERE username=%s"
+    cursor.execute(query, username)
+    connection.commit()
+    id = cursor.fetchone()
+    cursor.close()
+    return id
+
+def check_email(email):
+    cursor = connection.cursor()
+    query = "SELECT id FROM user WHERE email=%s"
+    cursor.execute(query, email)
+    connection.commit()
+    id = cursor.fetchone()
+    cursor.close()
+    return id

@@ -22,13 +22,12 @@ def add_poem(poem):
     return id[0]
 
 def get_poem_by_id(id):
-    cursor = connection.cursor()
-    query = "SELECT title, text, author_id, year, average FROM poem WHERE id=%s"
+    cursor = connection.cursor(pymysql.cursors.DictCursor)
+    query = "SELECT title, text, author_id, year, poem.average, author.name as author_name FROM poem JOIN author on author_id=author.id WHERE poem.id=%s"
     cursor.execute(query, id)
     connection.commit()
     try:
-        title, text, author_id, year, average = cursor.fetchone()
-        poem = Poem(title=title, text=text, author_id=author_id, year=year, average=average, id=id)
+        poem = cursor.fetchone()
     except:
         poem = None
     cursor.close()
@@ -36,7 +35,7 @@ def get_poem_by_id(id):
 
 def get_poems():
     cursor = connection.cursor(pymysql.cursors.DictCursor)
-    query = "SELECT * FROM poem"
+    query = "SELECT poem.id, title, text, year, poem.average, author.name as author_name FROM poem JOIN author ON author.id=poem.author_id"
     cursor.execute(query)
     connection.commit()
     poems = cursor.fetchall()
@@ -85,7 +84,7 @@ def get_poems_of_author(author_id):
 
 def get_top_poems():
     cursor = connection.cursor(pymysql.cursors.DictCursor)
-    query = "SELECT id, title, text, average FROM poem WHERE average>0 ORDER BY average DESC LIMIT 5"
+    query = "SELECT poem.id, title, text, average FROM poem JOIN vote ON vote.poem_id=poem.id GROUP BY id HAVING COUNT(id)>2 ORDER BY average DESC LIMIT 5;"
     cursor.execute(query)
     connection.commit(),
     try:

@@ -81,7 +81,7 @@ def update_author_avg(id):
 
 def get_top_authors():
     cursor = connection.cursor(pymysql.cursors.DictCursor)
-    query = "SELECT id, name, average FROM author WHERE average>0 ORDER BY average DESC LIMIT 5"
+    query = "SELECT id, name, average FROM author JOIN vote ON vote.author_id=author.id HAVING COUNT(id)>2 ORDER BY average DESC LIMIT 5"
     cursor.execute(query)
     connection.commit()
     try:

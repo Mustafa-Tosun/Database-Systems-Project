@@ -17,13 +17,6 @@ def author_page(id):
         poem['text'] = poem['text'].splitlines()[0:4]
     comment_form = CommentForm()
     comments = get_comments_of_author(id)
-    if comments != None:
-        users = []
-        for comment in comments:
-            #comment['text'] = comment['text'].decode('utf-8')
-            user = get_user_by_id(comment['user_id'])
-            comment['username'] = user.username
-            comment['realname'] = user.realname
     if request.method == "GET":
         return render_template("author.html", author=author, poems=poems, comment_form=comment_form, comments=comments)
     else:

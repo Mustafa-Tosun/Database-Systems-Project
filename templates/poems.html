@@ -18,7 +18,7 @@
           <td><a href="{{ url_for('poem_page', id=poem.id) }}">{{ poem.title }}</a></td>
           <td>{% if poem.year %} {{ poem.year }} {% endif %}</td>
           <td>{% if poem.average!=-1 %} {{ poem.average }} {% endif %}</td>
-          <td><a href="{{ url_for('author_page', id=poem.author_id) }}">{{ poem.author }}</a></td>
+          <td><a href="{{ url_for('author_page', id=poem.author_id) }}">{{ poem.author_name }}</a></td>
         </tr>
         {% endfor %}
       </tbody>

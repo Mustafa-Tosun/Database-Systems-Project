@@ -24,6 +24,7 @@ def get_favorites(user_id):
         favorites = cursor.fetchall()
     except:
         favorites = None
+    cursor.close()
     return favorites
 
 def favorite_check(user_id, poem_id):
@@ -31,6 +32,7 @@ def favorite_check(user_id, poem_id):
     query = "SELECT * FROM favorite WHERE user_id=%s AND poem_id=%s"
     cursor.execute(query, (user_id, poem_id))
     favorite = cursor.fetchone()
+    cursor.close()
     if favorite==None:
         return 1
     else:

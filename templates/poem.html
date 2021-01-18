@@ -4,7 +4,7 @@
   <div class="columns">
     <div class="column is-three-fifths">
     <h1 class="title has-text-centered">{{ poem.title }}</h1>
-    <h3 class="subtitle has-text-centered">by <a href="{{ url_for('author_page', id=author.id) }}">{{ author.name }}</a></h3>
+    <h3 class="subtitle has-text-centered">by <a href="{{ url_for('author_page', id=poem.author_id) }}">{{ poem.author_name }}</a></h3>
     <div class="has-text-centered" style="font-family: 'Sansita Swashed', cursive; font-size: 20px;">
         {% for para in poem.text %}
             {{para}}</br>
@@ -47,15 +47,15 @@
         <div class="modal-content">
           <div class="is-rounded is-warning" style="margin-left: 30%;">
             <fieldset class="rating">
-              <input type="radio" id="star10" name="point" value="10"/><label class = "full" for="star10"></label>
+              <input type="radio" id="star10" name="point" value="10"/><label class="full" for="star10"></label>
               <input type="radio" id="star9" name="point" value="9" /><label class="full" for="star9"></label>
-              <input type="radio" id="star8" name="point" value="8" /><label class = "full" for="star8"></label>
+              <input type="radio" id="star8" name="point" value="8" /><label class="full" for="star8"></label>
               <input type="radio" id="star7" name="point" value="7" /><label class="full" for="star7"></label>
-              <input type="radio" id="star6" name="point" value="6" /><label class = "full" for="star6"></label>
+              <input type="radio" id="star6" name="point" value="6" /><label class="full" for="star6"></label>
               <input type="radio" id="star5" name="point" value="5" /><label class="full" for="star5"></label>
-              <input type="radio" id="star4" name="point" value="4" /><label class = "full" for="star4"></label>
+              <input type="radio" id="star4" name="point" value="4" /><label class="full" for="star4"></label>
               <input type="radio" id="star3" name="point" value="3" /><label class="full" for="star3"></label>
-              <input type="radio" id="star2" name="point" value="2" /><label class = "full" for="star2"></label>
+              <input type="radio" id="star2" name="point" value="2" /><label class="full" for="star2"></label>
               <input type="radio" id="star1" name="point" value="1" /><label class="full" for="star1"></label>
             </fieldset>
           </div>

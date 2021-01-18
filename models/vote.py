@@ -49,14 +49,7 @@ def delete_vote(poem_id, user_id):
     try:
         cursor.execute(query, (user_id, poem_id))
         connection.commit()
+        cursor.close()
     except:
-        return
-    cursor.close()
+        cursor.close()
     return
-
-def delete_votes(poem_id):
-    cursor = connection.cursor()
-    query = "DELETE FROM vote WHERE poem_id=%s"
-    cursor.execute(query, peom_id)
-    connection.commit()
-    cursor.close()

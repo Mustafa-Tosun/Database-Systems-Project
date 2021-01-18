@@ -6,7 +6,8 @@ from models.author import get_author_by_name, get_author_by_id, get_authors, upd
 from models.user import get_user_by_id
 from models.vote import get_votes, get_vote
 from models.favorite import add_favorite, favorite_check, delete_favorite
-from views.comment import comment_add, comments_page
+from models.comment import get_comments
+from views.comment import comment_add
 from views.vote import vote_add, vote_delete
 
 def poem_page(id):
@@ -14,25 +15,18 @@ def poem_page(id):
     if poem is None:
         abort(404)
     #poem.text = poem.text.decode('utf-8')
-    poem.text = poem.text.split('\n')
+    poem['text'] = poem['text'].split('\n')
     comment_form = CommentForm()
     vote_form = VoteForm()
-    comments = comments_page(id)
-    author = get_author_by_id(poem.author_id)
-    if comments != None:
-        users = []
-        for comment in comments:
-            #comment['text'] = comment['text'].decode('utf-8')
-            user = get_user_by_id(comment['user_id'])
-            comment['username'] = user.username
-            comment['realname'] = user.realname
+    comments = get_comments(id)
+    #author = get_author_by_id(poem.author_id)
     if request.method == "GET":
         if current_user.is_authenticated:
             vote = get_vote(user_id=current_user.id, poem_id=id)
         else:
             vote = None
         check = favorite_check(current_user.id, id)
-        return render_template("poem.html", poem=poem, comment_form=comment_form, comments=comments, vote_form=vote_form, vote=vote, author=author, check=check)
+        return render_template("poem.html", poem=poem, comment_form=comment_form, comments=comments, vote_form=vote_form, vote=vote, check=check)
     else:
         if request.form['btn'] == 'edit':
             return redirect(url_for("poem_edit_page", id=id))
@@ -53,9 +47,6 @@ def poem_page(id):
 def poems_page():
     if request.method == "GET":
         poems = get_poems()
-        for poem in poems:
-            author = get_author_by_id(poem['author_id'])
-            poem['author'] = author.name
         return render_template("poems.html", poems=poems)
     else:
         if not current_user.is_admin:
