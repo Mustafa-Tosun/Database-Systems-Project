@@ -35,7 +35,7 @@ def get_poem_by_id(id):
 
 def get_poems():
     cursor = connection.cursor(pymysql.cursors.DictCursor)
-    query = "SELECT poem.id, title, text, year, poem.average, author.name as author_name FROM poem JOIN author ON author.id=poem.author_id"
+    query = "SELECT poem.id, title, text, year, poem.average, author_id, author.name as author_name FROM poem JOIN author ON author.id=poem.author_id"
     cursor.execute(query)
     connection.commit()
     poems = cursor.fetchall()
