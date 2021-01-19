@@ -1,10 +1,10 @@
 from flask import render_template, request, redirect, url_for, flash, abort
 from flask_login import login_required, current_user
 from forms import AuthorForm, CommentForm
-from models.author import Author, add_author, update_author, delete_author, get_author_by_id, get_authors
-from models.poem import get_poems_of_author
-from models.comment import get_comments_of_author
-from models.user import get_user_by_id
+from tables.author import Author, add_author, update_author, delete_author, get_author_by_id, get_authors
+from tables.poem import get_poems_of_author
+from tables.comment import get_comments_of_author
+from tables.user import get_user_by_id
 from views.comment import comment_add_author
 
 def author_page(id):

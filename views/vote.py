@@ -1,9 +1,9 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 from forms import VoteForm
-from models.vote import Vote, add_vote, get_votes_of_user, update_vote, delete_vote
-from models.poem import update_poem_avg
-from models.author import update_author_avg
+from tables.vote import Vote, add_vote, get_votes_of_user, update_vote, delete_vote
+from tables.poem import update_poem_avg
+from tables.author import update_author_avg
 
 @login_required
 def vote_add(poem_id, author_id):

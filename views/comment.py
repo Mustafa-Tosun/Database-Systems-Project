@@ -1,7 +1,7 @@
 from flask import redirect, request, render_template, url_for, abort
 from flask_login import login_required, current_user
 from forms import CommentForm
-from models.comment import Comment, add_comment, delete_comment, add_comment_author, get_user_id_of_comment, get_comment, update_comment
+from tables.comment import Comment, add_comment, delete_comment, add_comment_author, get_user_id_of_comment, get_comment, update_comment
 from datetime import datetime
 
 @login_required

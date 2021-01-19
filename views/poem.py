@@ -1,12 +1,12 @@
 from flask import current_app, render_template, request, redirect, url_for, flash, abort
 from flask_login import login_required, login_user, current_user, logout_user
 from forms import PoemForm, CommentForm, VoteForm
-from models.poem import Poem, add_poem, get_poem_by_id, get_poems, update_poem, delete_poem, get_author_id_of_poem, check_author_poem
-from models.author import get_author_by_name, get_author_by_id, get_authors, update_author_avg
-from models.user import get_user_by_id
-from models.vote import get_votes, get_vote
-from models.favorite import add_favorite, favorite_check, delete_favorite
-from models.comment import get_comments
+from tables.poem import Poem, add_poem, get_poem_by_id, get_poems, update_poem, delete_poem, get_author_id_of_poem, check_author_poem
+from tables.author import get_author_by_name, get_author_by_id, get_authors, update_author_avg
+from tables.user import get_user_by_id
+from tables.vote import get_votes, get_vote
+from tables.favorite import add_favorite, favorite_check, delete_favorite
+from tables.comment import get_comments
 from views.comment import comment_add, comment_edit_page
 from views.vote import vote_add, vote_delete
 

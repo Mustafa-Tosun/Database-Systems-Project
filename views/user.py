@@ -1,8 +1,8 @@
 from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_required, login_user, current_user, logout_user
-from models.user import User, add_user, get_user_by_email, update_user, delete_user, check_username, check_email
-from models.poem import get_top_poems, get_newest_poems
-from models.author import get_top_authors, get_newest_authors
+from tables.user import User, add_user, get_user_by_email, update_user, delete_user, check_username, check_email
+from tables.poem import get_top_poems, get_newest_poems
+from tables.author import get_top_authors, get_newest_authors
 from forms import LoginForm, RegisterForm, UpdateUserForm
 from passlib.hash import pbkdf2_sha256 as hasher
 

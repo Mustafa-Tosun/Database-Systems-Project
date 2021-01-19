@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import login_required, current_user
-from models.favorite import get_favorites, delete_favorite
+from tables.favorite import get_favorites, delete_favorite
 
 @login_required
 def favorite_page():
