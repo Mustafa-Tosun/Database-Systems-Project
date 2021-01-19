@@ -10,6 +10,7 @@
             <th><abbr title="Year">Birth</abbr></th>
             <th><abbr title="Average">Death</abbr></th>
             <th><abbr title="Author">Average</abbr></th>
+            <th><abbr title="Number of Votes">Number of Votes</abbr></th>
           </tr>
         </thead>
         <tbody>
@@ -19,6 +20,7 @@
             <td>{% if author.birth %} {{ author.birth }} {% endif %}</td>
             <td>{% if author.death %} {{ author.death }} {% endif %}</td>
             <td>{% if author.average!=-1 %} {{ author.average }} {% endif %}</td>
+            <td>{{ author.total_votes }}</td>
           </tr>
           {% endfor %}
         </tbody>

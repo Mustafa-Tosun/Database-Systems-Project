@@ -16,7 +16,7 @@
     <div class="has-text-centered">
       {% if poem.year %} Year: {{ poem.year }}{% endif %}
     </br>
-      {% if poem.average!=-1 %}<span style='font-size:30px;'>&#9734;</span> {{ poem.average }} {% endif %}
+      {% if poem.average!=-1 %}<span style='font-size:30px;'>&#9734;</span> {{ poem.average }}  </br> ({{ poem.total_votes }}) {% endif %}
     </div>
     </br></br>
     {% if current_user.is_authenticated %}
@@ -108,7 +108,7 @@
             {% if current_user.is_admin or current_user.id == comment.user_id %}
             <div class="media-right">
               {% if current_user.id == comment.user_id %}
-              <form action="" method="POST" name="edit_comment">
+              <form action="" method="POST" name="edit_comment" class="has-text-left">
                 <button name="btn" value="{{comment.id}}" id="{{comment.id}}" class="material-icons" style="font-size:12px">mode_edit</button>
               </form>
               {% endif %}

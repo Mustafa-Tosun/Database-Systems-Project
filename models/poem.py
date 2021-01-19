@@ -23,7 +23,7 @@ def add_poem(poem):
 
 def get_poem_by_id(id):
     cursor = connection.cursor(pymysql.cursors.DictCursor)
-    query = "SELECT poem.id, title, text, author_id, year, poem.average, author.name as author_name FROM poem JOIN author on author_id=author.id WHERE poem.id=%s"
+    query = "SELECT poem.id, title, text, author_id, year, poem.average, total_votes, author.name as author_name FROM poem JOIN author on author_id=author.id WHERE poem.id=%s"
     cursor.execute(query, id)
     connection.commit()
     try:
@@ -35,7 +35,7 @@ def get_poem_by_id(id):
 
 def get_poems():
     cursor = connection.cursor(pymysql.cursors.DictCursor)
-    query = "SELECT poem.id, title, text, year, poem.average, author_id, author.name as author_name FROM poem JOIN author ON author.id=poem.author_id"
+    query = "SELECT poem.id, title, text, year, poem.average, total_votes, author_id, author.name as author_name FROM poem JOIN author ON author.id=poem.author_id"
     cursor.execute(query)
     connection.commit()
     poems = cursor.fetchall()
@@ -59,20 +59,20 @@ def delete_poem(id):
 
 def update_poem_avg(id):
     cursor = connection.cursor(pymysql.cursors.DictCursor)
-    query = "SELECT AVG(point) FROM vote WHERE poem_id=%s"
+    query = "SELECT AVG(point), COUNT(point) FROM vote WHERE poem_id=%s"
     cursor.execute(query, id)
     connection.commit()
-    average = cursor.fetchone()
-    if average['AVG(point)'] == None:
-        average['AVG(point)'] = -1
-    query = "UPDATE poem SET average=%s WHERE id=%s"
-    cursor.execute(query, (average['AVG(point)'], id))
+    result = cursor.fetchone()
+    if result['AVG(point)'] == None:
+        result['AVG(point)'] = -1
+    query = "UPDATE poem SET average=%s, total_votes)%s WHERE id=%s"
+    cursor.execute(query, (result['AVG(point)'], result['COUNT(point)'], id))
     connection.commit()
     cursor.close()
 
 def get_poems_of_author(author_id):
     cursor = connection.cursor(pymysql.cursors.DictCursor)
-    query = "SELECT id,title, text, average FROM poem WHERE author_id=%s"
+    query = "SELECT id,title, text, average, total_votes FROM poem WHERE author_id=%s"
     cursor.execute(query, author_id)
     connection.commit()
     try:
@@ -84,7 +84,7 @@ def get_poems_of_author(author_id):
 
 def get_top_poems():
     cursor = connection.cursor(pymysql.cursors.DictCursor)
-    query = "SELECT poem.id, title, text, average FROM poem JOIN vote ON vote.poem_id=poem.id GROUP BY id HAVING COUNT(id)>2 ORDER BY average DESC LIMIT 5;"
+    query = "SELECT poem.id, title, text, average, total_votes FROM poem JOIN vote ON vote.poem_id=poem.id GROUP BY id HAVING COUNT(id)>2 ORDER BY average DESC LIMIT 5;"
     cursor.execute(query)
     connection.commit(),
     try:
@@ -96,7 +96,7 @@ def get_top_poems():
 
 def get_newest_poems():
     cursor = connection.cursor(pymysql.cursors.DictCursor)
-    query = "SELECT id, title, text, average FROM poem ORDER BY id DESC LIMIT 5"
+    query = "SELECT id, title, text, average, total_votes FROM poem ORDER BY id DESC LIMIT 5"
     cursor.execute(query)
     connection.commit()
     try:

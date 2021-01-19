@@ -5,7 +5,6 @@ import pymysql
 connection = pymysql.connect("poeticadb.cl0hfbdfwgc5.us-east-1.rds.amazonaws.com","radiohead","karmapolice","poetica")
 #connection = pymysql.connect("remotemysql.com","ggSTCtvE2s","fALcClwcn5","ggSTCtvE2s" )
 #connection = pymysql.connect("localhost","root","root","poetica")
-import dbinit
 
 from views.user import home_page, login_page, register_page, logout_page, profile_page
 from views.author import authors_page, author_page, author_add_page, author_edit_page, author_delete_page
@@ -59,9 +58,6 @@ def create_app():
 
     # Favorite
     app.add_url_rule("/favorites", view_func=favorite_page, methods=["GET", "POST"])
-
-
-    #dbinit.initialize()
 
     lm.init_app(app)
     lm.login_view = "login_page"

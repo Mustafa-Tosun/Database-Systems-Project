@@ -22,7 +22,7 @@ def add_author(author):
 
 def get_author_by_id(id):
     cursor = connection.cursor()
-    query = "SELECT name, birth, death, average FROM author WHERE id=%s"
+    query = "SELECT name, birth, death, average, total_votes FROM author WHERE id=%s"
     cursor.execute(query, id)
     connection.commit()
     try:
@@ -67,21 +67,21 @@ def delete_author(id):
     cursor.close()
 
 def update_author_avg(id):
-    cursor = connection.cursor()
-    query = "SELECT AVG(point) FROM vote WHERE author_id=%s"
+    cursor = connection.cursor(pymysql.cursors.DictCursor)
+    query = "SELECT AVG(point), COUNT(point) FROM vote WHERE author_id=%s"
     cursor.execute(query, id)
     connection.commit()
-    average = cursor.fetchone()
-    if average[0] == None:
-        average = -1
-    query = "UPDATE author SET average=%s WHERE id=%s"
-    cursor.execute(query, (average, id))
+    result = cursor.fetchone()
+    if result['AVG(point)'] == None:
+        result['AVG(point)'] = -1
+    query = "UPDATE author SET average=%s, total_votes=%s WHERE id=%s"
+    cursor.execute(query, (result['AVG(point)'], result['COUNT(point)'], id))
     connection.commit()
     cursor.close()
 
 def get_top_authors():
     cursor = connection.cursor(pymysql.cursors.DictCursor)
-    query = "SELECT id, name, average FROM author JOIN vote ON vote.author_id=author.id HAVING COUNT(id)>2 ORDER BY average DESC LIMIT 5"
+    query = "SELECT id, name, average, total_votes FROM author JOIN vote ON vote.author_id=author.id HAVING COUNT(id)>2 ORDER BY average DESC LIMIT 5"
     cursor.execute(query)
     connection.commit()
     try:
@@ -93,7 +93,7 @@ def get_top_authors():
 
 def get_newest_authors():
     cursor = connection.cursor(pymysql.cursors.DictCursor)
-    query = "SELECT id, name, average FROM author ORDER BY id DESC LIMIT 5"
+    query = "SELECT id, name, average, total_votes FROM author ORDER BY id DESC LIMIT 5"
     cursor.execute(query)
     connection.commit()
     try:

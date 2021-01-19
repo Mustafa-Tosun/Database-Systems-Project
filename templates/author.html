@@ -5,7 +5,7 @@
   {% if (author.birth and author.death) %} <h3 class="subtitle has-text-centered"> ({{ author.birth }} - {{ author.death }}) </h3>
   {% elif author.birth %} <h3 class="subtitle has-text-centered"> ({{ author.birth }} - ?) </h3>
   {% elif author.death %} <h3 class="subtitle has-text-centered"> (? - {{ author.death }}) </h3> {% endif %}
-  {% if author.average!=-1 %} <h3 class="subtitle has-text-centered"><span style='font-size:30px;'>&#9734;</span> {{ author.average }} </h3> {% endif %}
+  {% if author.average!=-1 %} <h3 class="subtitle has-text-centered"><span style='font-size:30px;'>&#9734;</span> {{ author.average }} </br> ({{ author.total_votes }}) </h3> {% endif %}
   <div class="columns">
     <div class="column is-three-fifths has-text-centered">
       {% if poems %}
@@ -14,7 +14,7 @@
         {% for poem in poems %}
       <div class="card column is-one-third" style="margin-right: 10px; margin-left: 5%; margin-bottom: 30px; background-color: wheat;">
           <div class="card-content ">
-          <p class="title">
+          <p class="title is-6">
             {{ poem.title }}
           </p>
           
@@ -26,7 +26,7 @@
             ...
           </div>
           </br>
-          {% if poem.average!=-1 %}<span style='font-size:30px;'>&#9734;</span> {{ poem.average }} {% endif %}
+          {% if poem.average!=-1 %}<span style='font-size:30px;'>&#9734;</span> {{ poem.average }} </br> ({{ poem.total_votes }}) {% endif %}
           </br>
           <a href="{{ url_for('poem_page', id=poem.id) }}">Read more...</a>
           </p>

@@ -16,6 +16,7 @@ INIT_STATEMENTS= [
         birth SMALLINT,
         death SMALLINT,
         average FLOAT,
+        total_votes INT DEFAULT 0,
         PRIMARY KEY (id)
     )""",
     """CREATE TABLE IF NOT EXISTS poem (
@@ -24,6 +25,7 @@ INIT_STATEMENTS= [
         text TEXT NOT NULL,
         year SMALLINT,
         average FLOAT,
+        total_votes INT DEFAULT 0,
         author_id INT UNSIGNED,
         FOREIGN KEY (author_id) REFERENCES author(id) ON DELETE CASCADE ON UPDATE CASCADE,
         PRIMARY KEY (id)

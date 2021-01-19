@@ -18,7 +18,7 @@
                 ...
             </div>
         </br>
-        {% if poem.average!=-1 %}<span style='font-size:30px;'>&#9734;</span> {{ poem.average }} {% endif %}
+        {% if poem.average!=-1 %}<span style='font-size:30px;'>&#9734;</span> {{ poem.average }} </br> ({{ poem.total_votes }}) {% endif %}
         </br>
         <a href="{{ url_for('poem_page', id=poem.id) }}">Read more...</a>
         </p>
@@ -32,7 +32,7 @@
         {% for poem in newest_poems %}
         <div class="card column is-2" style="margin-left: 10px; background-color:wheat">
             <div class="card-content ">
-            <p class="title">
+            <p class="title is-6">
               {{ poem.title }}
             </p>
             
@@ -44,7 +44,7 @@
                     ...
                 </div>
             </br>
-            {% if poem.average!=-1 %}<span style='font-size:30px;'>&#9734;</span> {{ poem.average }} {% endif %}
+            {% if poem.average!=-1 %}<span style='font-size:30px;'>&#9734;</span> {{ poem.average }} </br> ({{ poem.total_votes }}) {% endif %}
             </br>
             <a href="{{ url_for('poem_page', id=poem.id) }}">Read more...</a>
             </p>
@@ -64,7 +64,7 @@
             
             <p class="subtitle">
             </br>
-            {% if author.average!=-1 %}<span style='font-size:30px;'>&#9734;</span> {{ author.average }} {% endif %}
+            {% if author.average!=-1 %}<span style='font-size:30px;'>&#9734;</span> {{ author.average }} </br> ({{ author.total_votes }}) {% endif %}
             </p>
             </div>
         </div>
@@ -82,7 +82,7 @@
             
             <p class="subtitle">
             </br>
-            {% if author.average!=-1 %}<span style='font-size:30px;'>&#9734;</span> {{ author.average }} {% endif %}
+            {% if author.average!=-1 %}<span style='font-size:30px;'>&#9734;</span> {{ author.average }} </br> ({{ author.total_votes }}) {% endif %}
             </p>
             </div>
         </div>

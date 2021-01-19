@@ -23,30 +23,34 @@ def poem_page(id):
     if request.method == "GET":
         if current_user.is_authenticated:
             vote = get_vote(user_id=current_user.id, poem_id=id)
+            check = favorite_check(current_user.id, id)
         else:
             vote = None
-        check = favorite_check(current_user.id, id)
+            check = True
         return render_template("poem.html", poem=poem, comment_form=comment_form, comments=comments, vote_form=vote_form, vote=vote, check=check)
     else:
         if request.form['btn'] == 'edit':
             return redirect(url_for("poem_edit_page", id=id))
         if request.form['btn'] == 'submit_comment':
             comment_add(id)
+            return redirect(url_for("poem_page", id=id))
         if request.form['btn'] == 'submit_vote':
             vote_add(id, poem.author_id)
+            return redirect(url_for("poem_page", id=id))
         if request.form['btn'] == 'delete_vote':
             vote_delete(id, poem.author_id)
+            return redirect(url_for("poem_page", id=id))
         if request.form['btn'] == 'favorite':
             flash("Poem added to your favorites." , 'is-info')
             add_favorite(current_user.id, id)
+            return redirect(url_for("poem_page", id=id))
         if request.form['btn'] == 'remove_favorite':
             flash("Poem removed from your favorites.", 'is-info')
             delete_favorite(current_user.id, id)
         else:
             comment_id = request.form['btn']
             return redirect(url_for("comment_edit_page", comment_id=comment_id))
-        return redirect(url_for("poem_page", id=id))
-
+    
 def poems_page():
     if request.method == "GET":
         poems = get_poems()
