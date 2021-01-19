@@ -156,7 +156,7 @@
     modal.classList.add('is-active');
     title.innerHTML = 'Deleting {{ author.name }}';
     message.innerHTML =  'Are You Sure?';
-    deleteForm.action = '{{author.id}}/delete-author';
+    deleteForm.action = '{{ author.id }}/delete-author';
   });
   cancelButton.addEventListener('click', () => {
     modal.classList.remove('is-active');

@@ -18,7 +18,6 @@ def author_page(id):
     comment_form = CommentForm()
     comments = get_comments_of_author(id)
     if request.method == "GET":
-        print("asdfasdf")
         return render_template("author.html", author=author, poems=poems, comment_form=comment_form, comments=comments)
     else:
         if request.form['btn'] == 'edit':
@@ -28,7 +27,6 @@ def author_page(id):
             return redirect(url_for("author_page", id=id))
         else:
             comment_id = request.form['btn']
-            print("sadfasdfasdfasdf")
             return redirect(url_for("comment_edit_page", comment_id=comment_id))
 
 def authors_page():
@@ -41,7 +39,6 @@ def authors_page():
         form_author_ids = request.form.getlist('ids')
         if form_author_ids != None:
             for id in form_author_ids:
-                print(id)
                 delete_author(int(id))
         return redirect(url_for("authors_page"))
 

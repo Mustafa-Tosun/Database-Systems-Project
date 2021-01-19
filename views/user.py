@@ -71,7 +71,7 @@ def logout_page():
     return redirect(url_for("home_page"))
 
 @login_required
-def profile_page(id):
+def profile_page():
     form = UpdateUserForm()
     if request.method == "GET":
         return render_template("profile.html", form=form)
@@ -80,13 +80,14 @@ def profile_page(id):
             if not form.validate_on_submit():
                 return render_template("profile.html", form=form)
             realname = form.data["realname"]
-            update_user(id, realname)
+            update_user(current_user.id, realname)
             flash("Change is saved.", 'is-success')
-            return redirect(url_for("profile_page", id=id))
+            return redirect(url_for("profile_page"))
         else:
             if current_user.is_admin:
                 flash("Administrator accounts can not be deleted!", 'is-warning')
-                return redirect(url_for("profile_page", id=id))
+                return redirect(url_for("profile_page"))
+            id = current_user.id
             logout_user()
             delete_user(id)
             flash("Your account is deleted.", 'is-success')

@@ -22,7 +22,7 @@ def add_author(author):
 
 def get_author_by_id(id):
     cursor = connection.cursor(pymysql.cursors.DictCursor)
-    query = "SELECT name, birth, death, average, total_votes FROM author WHERE id=%s"
+    query = "SELECT id, name, birth, death, average, total_votes FROM author WHERE id=%s"
     cursor.execute(query, id)
     connection.commit()
     author = cursor.fetchone()

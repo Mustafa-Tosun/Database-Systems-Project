@@ -35,7 +35,7 @@ def create_app():
     app.add_url_rule("/login", view_func=login_page, methods=["GET", "POST"])
     app.add_url_rule("/register", view_func=register_page, methods=["GET", "POST"])
     app.add_url_rule("/logout", view_func=logout_page)
-    app.add_url_rule("/profile/<int:id>", view_func=profile_page, methods=["GET", "POST"])
+    app.add_url_rule("/profile", view_func=profile_page, methods=["GET", "POST"])
     
     # Author
     app.add_url_rule("/authors", view_func=authors_page, methods=["GET", "POST"])
