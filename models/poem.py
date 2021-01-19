@@ -23,7 +23,7 @@ def add_poem(poem):
 
 def get_poem_by_id(id):
     cursor = connection.cursor(pymysql.cursors.DictCursor)
-    query = "SELECT poem.id, title, text, author_id, year, poem.average, total_votes, author.name as author_name FROM poem JOIN author on author_id=author.id WHERE poem.id=%s"
+    query = "SELECT poem.id, title, text, author_id, year, poem.average, poem.total_votes, author.name as author_name FROM poem JOIN author on author_id=author.id WHERE poem.id=%s"
     cursor.execute(query, id)
     connection.commit()
     try:
@@ -35,7 +35,7 @@ def get_poem_by_id(id):
 
 def get_poems():
     cursor = connection.cursor(pymysql.cursors.DictCursor)
-    query = "SELECT poem.id, title, text, year, poem.average, total_votes, author_id, author.name as author_name FROM poem JOIN author ON author.id=poem.author_id"
+    query = "SELECT poem.id, title, text, year, poem.average, poem.total_votes, author_id, author.name as author_name FROM poem JOIN author ON author.id=poem.author_id"
     cursor.execute(query)
     connection.commit()
     poems = cursor.fetchall()
@@ -59,14 +59,14 @@ def delete_poem(id):
 
 def update_poem_avg(id):
     cursor = connection.cursor(pymysql.cursors.DictCursor)
-    query = "SELECT AVG(point), COUNT(point) FROM vote WHERE poem_id=%s"
+    query = "SELECT ROUND(AVG(point),2), COUNT(point) FROM vote WHERE poem_id=%s"
     cursor.execute(query, id)
     connection.commit()
     result = cursor.fetchone()
-    if result['AVG(point)'] == None:
-        result['AVG(point)'] = -1
-    query = "UPDATE poem SET average=%s, total_votes)%s WHERE id=%s"
-    cursor.execute(query, (result['AVG(point)'], result['COUNT(point)'], id))
+    if result['ROUND(AVG(point),2)'] == None:
+        result['ROUND(AVG(point),2)'] = -1
+    query = "UPDATE poem SET average=%s, total_votes=%s WHERE id=%s"
+    cursor.execute(query, (result['ROUND(AVG(point),2)'], result['COUNT(point)'], id))
     connection.commit()
     cursor.close()
 

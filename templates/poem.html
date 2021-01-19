@@ -16,7 +16,7 @@
     <div class="has-text-centered">
       {% if poem.year %} Year: {{ poem.year }}{% endif %}
     </br>
-      {% if poem.average!=-1 %}<span style='font-size:30px;'>&#9734;</span> {{ poem.average }}  </br> ({{ poem.total_votes }}) {% endif %}
+      {% if poem.average!=-1 %}<span style='font-size:30px;'>&#9734;</span> {{ poem.average }}  </br> (Number of Votes: {{ poem.total_votes }}) {% endif %}
     </div>
     </br></br>
     {% if current_user.is_authenticated %}

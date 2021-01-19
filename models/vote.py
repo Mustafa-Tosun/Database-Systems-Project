@@ -53,3 +53,12 @@ def delete_vote(poem_id, user_id):
     except:
         cursor.close()
     return
+
+def get_votes_of_user(user_id):
+    cursor = connection.cursor(pymysql.cursors.DictCursor)
+    query = "SELECT point, poem_id, vote.author_id, poem.title as poem_title, poem.average, poem.total_votes,author.name as author_name FROM vote JOIN poem ON poem.id=poem_id JOIN author ON author.id=vote.author_id WHERE user_id=%s"
+    cursor.execute(query, user_id)
+    connection.commit()
+    votes = cursor.fetchall()
+    cursor.close()
+    return votes

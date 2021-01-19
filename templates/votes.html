@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block title %}My Votes{% endblock %}
+{% block content %}
+<h1 class="title has-text-danger-dark"">My Votes</h1>
+  {% if votes %}
+    <table id="votes" class="table is-striped is-narrow is-hoverable">
+      <thead>
+        <tr>
+          <th><abbr title="Title">Title</abbr></th>
+          <th><abbr title="Year">Year</abbr></th>
+          <th><abbr title="Average">Average</abbr></th>
+          <th><abbr title="My Vote">My Vote</abbr></th>
+          <th><abbr title="Author">Author</abbr></th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for vote in votes %}
+        <tr>  
+          <td><a href="{{ url_for('poem_page', id=vote.poem_id) }}">{{ vote.poem_title }}</a></td>
+          <td>{% if vote.year %} {{ vote.year }} {% endif %}</td>
+          <td>{% if vote.average!=-1 %} {{ vote.average }} {% endif %}</td>
+          <td>{{ vote.point }}</td>
+          <td><a href="{{ url_for('author_page', id=vote.author_id) }}">{{ vote.author_name }}</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+
+  <script>
+    $(document).ready( function () {
+      $('#votes').DataTable({
+        "order": [[3, "desc"]] 
+      });
+    });
+  </script>
+{% endblock %}

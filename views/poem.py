@@ -35,18 +35,17 @@ def poem_page(id):
             comment_add(id)
             return redirect(url_for("poem_page", id=id))
         if request.form['btn'] == 'submit_vote':
-            vote_add(id, poem.author_id)
+            vote_add(id, poem['author_id'])
             return redirect(url_for("poem_page", id=id))
         if request.form['btn'] == 'delete_vote':
-            vote_delete(id, poem.author_id)
+            vote_delete(id, poem['author_id'])
             return redirect(url_for("poem_page", id=id))
         if request.form['btn'] == 'favorite':
-            flash("Poem added to your favorites." , 'is-info')
             add_favorite(current_user.id, id)
             return redirect(url_for("poem_page", id=id))
         if request.form['btn'] == 'remove_favorite':
-            flash("Poem removed from your favorites.", 'is-info')
             delete_favorite(current_user.id, id)
+            return redirect(url_for("poem_page", id=id))
         else:
             comment_id = request.form['btn']
             return redirect(url_for("comment_edit_page", comment_id=comment_id))
@@ -99,11 +98,11 @@ def poem_edit_page(id):
         poem = get_poem_by_id(id)
         if poem is None:
             abort(404)
-        form.title.data = poem.title
-        form.text.data = poem.text
-        form.year.data = poem.year
-        author = get_author_by_id(poem.author_id)
-        form.author.data = author.name
+        form.title.data = poem['title']
+        form.text.data = poem['text']
+        form.year.data = poem['year']
+        author = get_author_by_id(poem['author_id'])
+        form.author.data = author['name']
         authors = get_authors()
         return render_template("poem_edit.html", form=form, authors=authors)
     else:

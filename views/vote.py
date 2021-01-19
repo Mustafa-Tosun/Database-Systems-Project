@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 from forms import VoteForm
-from models.vote import Vote, add_vote, get_votes, update_vote, delete_vote
+from models.vote import Vote, add_vote, get_votes_of_user, update_vote, delete_vote
 from models.poem import update_poem_avg
 from models.author import update_author_avg
 
@@ -27,3 +27,8 @@ def vote_delete(poem_id, author_id):
     update_poem_avg(poem_id)
     update_author_avg(author_id)
     return redirect(url_for("poem_page", id=poem_id))
+
+@login_required
+def votes_page():
+    votes = get_votes_of_user(current_user.id)
+    return render_template("votes.html", votes=votes)

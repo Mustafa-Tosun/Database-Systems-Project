@@ -21,15 +21,11 @@ def add_author(author):
     return id[0]
 
 def get_author_by_id(id):
-    cursor = connection.cursor()
+    cursor = connection.cursor(pymysql.cursors.DictCursor)
     query = "SELECT name, birth, death, average, total_votes FROM author WHERE id=%s"
     cursor.execute(query, id)
     connection.commit()
-    try:
-        name, birth, death, average = cursor.fetchone()
-        author = Author(name=name, birth=birth, death=death, average=average, id=id)
-    except:
-        author = None
+    author = cursor.fetchone()
     cursor.close()
     return author
 
@@ -68,14 +64,14 @@ def delete_author(id):
 
 def update_author_avg(id):
     cursor = connection.cursor(pymysql.cursors.DictCursor)
-    query = "SELECT AVG(point), COUNT(point) FROM vote WHERE author_id=%s"
+    query = "SELECT ROUND(AVG(point),2), COUNT(point) FROM vote WHERE author_id=%s"
     cursor.execute(query, id)
     connection.commit()
     result = cursor.fetchone()
-    if result['AVG(point)'] == None:
-        result['AVG(point)'] = -1
+    if result['ROUND(AVG(point),2)'] == None:
+        result['ROUND(AVG(point),2)'] = -1
     query = "UPDATE author SET average=%s, total_votes=%s WHERE id=%s"
-    cursor.execute(query, (result['AVG(point)'], result['COUNT(point)'], id))
+    cursor.execute(query, (result['ROUND(AVG(point),2)'], result['COUNT(point)'], id))
     connection.commit()
     cursor.close()
 

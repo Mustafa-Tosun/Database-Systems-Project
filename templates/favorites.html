@@ -36,7 +36,9 @@
 
   <script>
     $(document).ready( function () {
-      $('#favorites').DataTable();
+      $('#favorites').DataTable({
+        "order": [[1, "asc"]]
+      });
     });
   </script>
 {% endblock %}

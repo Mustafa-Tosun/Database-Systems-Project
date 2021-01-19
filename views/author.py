@@ -18,6 +18,7 @@ def author_page(id):
     comment_form = CommentForm()
     comments = get_comments_of_author(id)
     if request.method == "GET":
+        print("asdfasdf")
         return render_template("author.html", author=author, poems=poems, comment_form=comment_form, comments=comments)
     else:
         if request.form['btn'] == 'edit':
@@ -76,9 +77,9 @@ def author_edit_page(id):
         author = get_author_by_id(id)
         if author is None:
             abort(404)
-        form.name.data = author.name
-        form.birth.data = author.birth
-        form.death.data = author.death 
+        form.name.data = author['name']
+        form.birth.data = author['birth']
+        form.death.data = author['death'] 
         return render_template("author_edit.html", form=form)
     else:
         if not form.validate_on_submit():

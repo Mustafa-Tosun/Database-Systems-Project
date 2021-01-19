@@ -44,6 +44,9 @@
               <a class="navbar-item" href="{{ url_for('favorite_page')}}">
                 My Favorites
               </a>
+              <a class="navbar-item" href="{{ url_for('votes_page')}}">
+                My Votes
+              </a>
               {% endif %}
               {% if current_user.is_admin %}
                 <div class="navbar-item has-dropdown is-hoverable">

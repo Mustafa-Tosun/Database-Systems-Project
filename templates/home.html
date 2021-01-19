@@ -1,10 +1,11 @@
 {% extends "layout.html" %}
 {% block title %}Homepage{% endblock %}
 {% block content %}
+<div class="columns multiline">
+    <div class="column is-3">
     <h1 class="title has-text-danger-dark">Top Rated Poems</h1>
-<div class="columns">
     {% for poem in top_poems %}
-    <div class="card column is-2" style="margin-left: 10px; background-color:wheat">
+    <div class="card" style="margin-left: 10px; margin-top: 20px; background-color:wheat">
         <div class="card-content ">
         <p class="title">
           {{ poem.title }}
@@ -18,19 +19,19 @@
                 ...
             </div>
         </br>
-        {% if poem.average!=-1 %}<span style='font-size:30px;'>&#9734;</span> {{ poem.average }} </br> ({{ poem.total_votes }}) {% endif %}
+        {% if poem.average!=-1 %}<span style='font-size:30px;'>&#9734;</span> {{ poem.average }} </br> (Number of Votes: {{ poem.total_votes }}) {% endif %}
         </br>
         <a href="{{ url_for('poem_page', id=poem.id) }}">Read more...</a>
         </p>
         </div>
     </div>
     {% endfor %}
-</div>
+    </div>
 <hr>
+    <div class="column is-3">
     <h1 class="title has-text-danger-dark">Newest Poems</h1>
-    <div class="columns">
         {% for poem in newest_poems %}
-        <div class="card column is-2" style="margin-left: 10px; background-color:wheat">
+        <div class="card" style="margin-left: 10px; margin-top: 20px; background-color:wheat">
             <div class="card-content ">
             <p class="title is-6">
               {{ poem.title }}
@@ -44,7 +45,11 @@
                     ...
                 </div>
             </br>
-            {% if poem.average!=-1 %}<span style='font-size:30px;'>&#9734;</span> {{ poem.average }} </br> ({{ poem.total_votes }}) {% endif %}
+            <div class="has-text-centered">
+            {% if poem.average!=-1 %}
+                <span style='font-size:30px;'>&#9734;</span> {{ poem.average }} </br> (Number of Votes: {{ poem.total_votes }})
+            {% endif %} 
+            </div>
             </br>
             <a href="{{ url_for('poem_page', id=poem.id) }}">Read more...</a>
             </p>
@@ -53,40 +58,43 @@
         {% endfor %}
     </div>
     <hr>
+    <div class="column is-3">
     <h1 class="title has-text-danger-dark">Top Rated Authors</h1>
-    <div class="columns">
         {% for author in top_authors %}
-        <div class="card column is-2" style="margin-left: 10px; background-color:wheat">
+        <div class="card" style="margin-left: 10px; margin-top: 20px; background-color:wheat">
             <div class="card-content ">
             <p class="subtitle">
                 <a href="{{ url_for('author_page', id=author.id) }}">{{ author.name }}</a>
-            </p>
-            
-            <p class="subtitle">
             </br>
-            {% if author.average!=-1 %}<span style='font-size:30px;'>&#9734;</span> {{ author.average }} </br> ({{ author.total_votes }}) {% endif %}
+            <div class="has-text-centered">
+                {% if author.average!=-1 %}
+                    <span style='font-size:30px;'>&#9734;</span> {{ author.average }} </br> (Number of Votes: {{ author.total_votes }})
+                {% endif %} 
+                </div>
             </p>
             </div>
         </div>
         {% endfor %}
     </div>
     <hr>
+    <div class="column is-3">
     <h1 class="title has-text-danger-dark">Newest Authors</h1>
-    <div class="columns">
         {% for author in newest_authors %}
-        <div class="card column is-2" style="margin-left: 10px; background-color:wheat">
+        <div class="card" style="margin-left: 10px; margin-top: 20px; background-color:wheat">
             <div class="card-content ">
             <p class="subtitle">
                 <a href="{{ url_for('author_page', id=author.id) }}">{{ author.name }}</a>
-            </p>
-            
-            <p class="subtitle">
             </br>
-            {% if author.average!=-1 %}<span style='font-size:30px;'>&#9734;</span> {{ author.average }} </br> ({{ author.total_votes }}) {% endif %}
+            <div class="has-text-centered">
+                {% if author.average!=-1 %}
+                    <span style='font-size:30px;'>&#9734;</span> {{ author.average }} </br> (Number of Votes: {{ author.total_votes }})
+                {% endif %} 
+                </div>
             </p>
             </div>
         </div>
         {% endfor %}
     </div>
+</div>
     </br>
 {% endblock %}
