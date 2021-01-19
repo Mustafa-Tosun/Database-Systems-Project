@@ -1,5 +1,5 @@
-from flask import current_app, render_template, request, redirect, url_for, flash, abort, session
-from flask_login import login_required, login_user, current_user
+from flask import render_template, request, redirect, url_for, flash, abort
+from flask_login import login_required, current_user
 from forms import AuthorForm, CommentForm
 from models.author import Author, add_author, update_author, delete_author, get_author_by_id, get_authors
 from models.poem import get_poems_of_author
@@ -22,9 +22,13 @@ def author_page(id):
     else:
         if request.form['btn'] == 'edit':
             return redirect(url_for("author_edit_page", id=id))
-        else:
+        if request.form['btn'] == 'submit_comment':
             comment_add_author(id)
             return redirect(url_for("author_page", id=id))
+        else:
+            comment_id = request.form['btn']
+            print("sadfasdfasdfasdf")
+            return redirect(url_for("comment_edit_page", comment_id=comment_id))
 
 def authors_page():
     if request.method == "GET":

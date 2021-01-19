@@ -10,7 +10,7 @@ import dbinit
 from views.user import home_page, login_page, register_page, logout_page, profile_page
 from views.author import authors_page, author_page, author_add_page, author_edit_page, author_delete_page
 from views.poem import poems_page, poem_page, poem_add_page, poem_edit_page, poem_delete_page
-from views.comment import comment_delete, comment_delete_author
+from views.comment import comment_delete, comment_delete_author, comment_edit_page
 from views.favorite import favorite_page
 
 from models.user import get_user_by_id
@@ -55,9 +55,10 @@ def create_app():
     #app.add_url_rule("/poems/<int:poem_id>/new-comment", view_func=comment_add, methods=["GET", "POST"])
     app.add_url_rule("/poems/<int:poem_id>/delete-comment/<int:id>", view_func=comment_delete, methods=["GET", "POST"])
     app.add_url_rule("/authors/<int:author_id>/delete-comment/<int:id>", view_func=comment_delete_author, methods=["GET", "POST"])
-    
+    app.add_url_rule("/edit-comment/<int:comment_id>", view_func=comment_edit_page, methods=["GET", "POST"])
+
     # Favorite
-    app.add_url_rule("/favorites", view_func=favorite_page, methods=["GET"])
+    app.add_url_rule("/favorites", view_func=favorite_page, methods=["GET", "POST"])
 
 
     #dbinit.initialize()

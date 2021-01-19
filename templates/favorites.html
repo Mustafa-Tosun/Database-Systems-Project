@@ -3,9 +3,11 @@
 {% block content %}
 <h1 class="title has-text-danger-dark"">My Favorite Poems</h1>
   {% if favorites %}
+  <form action="" method="POST" name="favorite_list">
     <table id="favorites" class="table is-striped is-narrow is-hoverable">
       <thead>
         <tr>
+          <th><abbr title="Select">Select</abbr></th>
           <th><abbr title="Title">Title</abbr></th>
           <th><abbr title="Year">Year</abbr></th>
           <th><abbr title="Average">Average</abbr></th>
@@ -15,6 +17,7 @@
       <tbody>
       {% for favorite in favorites %}
         <tr>  
+          <td><label class="checkbox"><input type="checkbox" name="poem_ids" value="{{ favorite.poem_id }}"/></label></td>
           <td><a href="{{ url_for('poem_page', id=favorite.poem_id) }}">{{ favorite.title }}</a></td>
           <td>{% if favorite.year %} {{ favorite.year }} {% endif %}</td>
           <td>{% if favorite.average!=-1 %} {{ favorite.average }} {% endif %}</td>
@@ -22,7 +25,13 @@
         </tr>
         {% endfor %}
       </tbody>
-    </table> 
+    </table>
+    <div class="field is-grouped">
+      <div class="control">
+        <button class="button is-danger is-small">Delete</button>
+      </div>
+    </div> 
+  </form>
   {% endif %}
 
   <script>

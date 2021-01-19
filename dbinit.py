@@ -13,7 +13,6 @@ INIT_STATEMENTS= [
     """CREATE TABLE IF NOT EXISTS author (
         id INT UNSIGNED NOT NULL AUTO_INCREMENT,
         name VARCHAR(50) NOT NULL UNIQUE,
-        description TEXT,
         birth SMALLINT,
         death SMALLINT,
         average FLOAT,
@@ -27,12 +26,13 @@ INIT_STATEMENTS= [
         average FLOAT,
         author_id INT UNSIGNED,
         FOREIGN KEY (author_id) REFERENCES author(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    PRIMARY KEY (id)
+        PRIMARY KEY (id)
     )""",
     """CREATE TABLE IF NOT EXISTS comment (
         id INT UNSIGNED NOT NULL AUTO_INCREMENT,
         text TEXT NOT NULL,
         date DATE NOT NULL,
+        edit_date DATE,
         user_id INT UNSIGNED NOT NULL,
         poem_id INT UNSIGNED,
         author_id INT UNSIGNED,

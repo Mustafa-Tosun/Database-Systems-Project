@@ -12,7 +12,7 @@
       <h2 class="title" style="margin-left: 10%;">Poems</h2>
       <div class="columns is-multiline is-mobile">
         {% for poem in poems %}
-      <div class="card column is-one-quarter" style="margin-right: 5px; margin-left: 5%; margin-bottom: 30px; background-color: wheat;">
+      <div class="card column is-one-third" style="margin-right: 10px; margin-left: 5%; margin-bottom: 30px; background-color: wheat;">
           <div class="card-content ">
           <p class="title">
             {{ poem.title }}
@@ -48,7 +48,8 @@
             <div class="media-content">
               <div class="content">
                 <p>
-                  <strong>{{ comment.realname }}</strong> <small>@{{ comment.username }}</small> <small>{{ comment.date }}</small>
+                  <strong>{{ comment.realname }}</strong> <small>@{{ comment.username }}</small>
+                   <small>{{ comment.date }}{% if comment.edit_date %} (edited: {{ comment.edit_date }} {% endif %}</small>
                   <br>
                   {{ comment.text }}
                 </p>
@@ -56,8 +57,12 @@
             </div>
             {% if current_user.is_admin or current_user.id == comment.user_id %}
             <div class="media-right">
-              <form action="{{author.id}}/delete-comment/{{comment.id}}">
-                <button class="delete"></button>
+                {% if current_user.id == comment.user_id %}
+                <form action="" method="POST" name="edit_comment">
+                  <button name="btn" value="{{comment.id}}" id="{{comment.id}}" class="material-icons" style="font-size:12px">mode_edit</button>
+                </form>
+                {% endif %}
+                <button class="delete delete_comment" name="delete_comment" value="{{comment.text}}" id="{{comment.id}}"></button>
               </form>
             </div>
             {% endif %}
@@ -110,45 +115,55 @@
   </div>
   {% endif %}
 
-      <!-- Modal -->
-      <div class="modal" id="x" role="dialog">
-        <div class="modal-background"></div>
-        <div class="modal-content has-background-warning py-5 px-5 has-text-centered">
-         <h3 class="title">Deleting {{author.name}}</h3>
-         <p>This action will affect all poems of {{author.name}}!</p>
-         <p>Are you sure?</p>
-         <div class="columns">
-           <div class="column is-3">
-           <form action="{{author.id}}/delete-author" method="POST" name="poem_list">     
-             <button name="btn" value="save" class="button is-danger">Delete</button>
-           </form>
-          </div>
-          <div class="column is-3" style="margin-left: 50%;">
-           <button name="btn" id="cancel" value="cancel" class="button">Cancel</button>
-          </div>
-         </div>
-        </div>
-        <button class="modal-close is-large" aria-label="close"></button>
+  <!-- Modal -->
+  <div class="modal" id="x" role="dialog">
+    <div class="modal-background"></div>
+    <div class="modal-content has-background-warning py-5 px-5 has-text-centered">
+     <h3 class="title" id="title">Deleting</h3>
+     <p id="modal_message">Are you sure?</p>
+     <div class="columns">
+       <div class="column is-3">
+       <form action="" method="POST" id="delete_form">     
+         <button name="btn" value="save" class="button is-danger">Delete</button>
+       </form>
+      </div>
+      <div class="column is-3" style="margin-left: 50%;">
+       <button name="btn" id="cancel" value="cancel" class="button">Cancel</button>
+      </div>
+     </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
 
-    <script>
-        const deleteButton = document.querySelector('#delete')
-        const cancelButton = document.querySelector('#cancel')
-        const modalBg = document.querySelector('.modal-background')
-        const modal = document.querySelector('.modal')
+<script>
+  const deleteComment = document.querySelectorAll('.delete_comment');
+  const deleteButton = document.querySelector('#delete');
+  const cancelButton = document.querySelector('#cancel');
+  const modalBg = document.querySelector('.modal-background');
+  const modal = document.querySelector('.modal');
+  const title = document.getElementById('title');
+  const message = document.getElementById('modal_message');
+  const deleteForm = document.getElementById('delete_form');
 
-        deleteButton.addEventListener('click', () => {
-            modal.classList.add('is-active');
-        })
-
-        cancelButton.addEventListener('click', () => {
-          modal.classList.remove('is-active');
-        })
-
-        modalBg.addEventListener('click', () => {
-            modal.classList.remove('is-active');
-        })
-
-
-    </script>
+  for(i=0; i<deleteComment.length; i++){
+    deleteComment[i].addEventListener('click', function(e)  {
+      modal.classList.add('is-active');
+      title.innerHTML = 'Deleting Comment';
+      message.innerHTML =  e.target.value;
+      deleteForm.action = '{{ author.id }}/delete-comment/' + e.target.id;
+    })
+  }
+  deleteButton.addEventListener('click', () => {
+    modal.classList.add('is-active');
+    title.innerHTML = 'Deleting {{ author.name }}';
+    message.innerHTML =  'Are You Sure?';
+    deleteForm.action = '{{author.id}}/delete-author';
+  });
+  cancelButton.addEventListener('click', () => {
+    modal.classList.remove('is-active');
+  });
+  modalBg.addEventListener('click', () => {
+    modal.classList.remove('is-active');
+  });
+</script>
   
 {% endblock %}

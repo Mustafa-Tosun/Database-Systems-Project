@@ -23,7 +23,7 @@ def add_poem(poem):
 
 def get_poem_by_id(id):
     cursor = connection.cursor(pymysql.cursors.DictCursor)
-    query = "SELECT title, text, author_id, year, poem.average, author.name as author_name FROM poem JOIN author on author_id=author.id WHERE poem.id=%s"
+    query = "SELECT poem.id, title, text, author_id, year, poem.average, author.name as author_name FROM poem JOIN author on author_id=author.id WHERE poem.id=%s"
     cursor.execute(query, id)
     connection.commit()
     try:

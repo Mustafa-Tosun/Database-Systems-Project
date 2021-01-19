@@ -1,5 +1,5 @@
-from flask import current_app, render_template, request, redirect, url_for, flash, abort
-from flask_login import login_required, login_user, current_user, logout_user
+from flask import render_template, request, redirect, url_for
+from flask_login import login_required, current_user
 from forms import VoteForm
 from models.vote import Vote, add_vote, get_votes, update_vote, delete_vote
 from models.poem import update_poem_avg

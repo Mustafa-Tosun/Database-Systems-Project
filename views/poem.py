@@ -7,7 +7,7 @@ from models.user import get_user_by_id
 from models.vote import get_votes, get_vote
 from models.favorite import add_favorite, favorite_check, delete_favorite
 from models.comment import get_comments
-from views.comment import comment_add
+from views.comment import comment_add, comment_edit_page
 from views.vote import vote_add, vote_delete
 
 def poem_page(id):
@@ -37,11 +37,14 @@ def poem_page(id):
         if request.form['btn'] == 'delete_vote':
             vote_delete(id, poem.author_id)
         if request.form['btn'] == 'favorite':
-            flash("Poem added to your favorites.")
+            flash("Poem added to your favorites." , 'is-info')
             add_favorite(current_user.id, id)
         if request.form['btn'] == 'remove_favorite':
-            flash("Poem removed from your favorites.")
+            flash("Poem removed from your favorites.", 'is-info')
             delete_favorite(current_user.id, id)
+        else:
+            comment_id = request.form['btn']
+            return redirect(url_for("comment_edit_page", comment_id=comment_id))
         return redirect(url_for("poem_page", id=id))
 
 def poems_page():

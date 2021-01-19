@@ -1,5 +1,4 @@
-from datetime import datetime
-from flask import current_app, render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_required, login_user, current_user, logout_user
 from models.user import User, add_user, get_user_by_email, update_user, delete_user, check_username, check_email
 from models.poem import get_top_poems, get_newest_poems

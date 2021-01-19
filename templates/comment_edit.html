@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block title %}Edit Comment{% endblock %}
+{% block content %}
+  <h1 class="title has-text-centered">Edit Comment</h1>
+  <div class="column is-4 is-offset-4">
+    <div class="field">
+      <label for="comment" class="label">Existing Comment</label>
+      <div class="control is-one-quarter">
+        {{ comment.text }}
+      </div>
+    </div>
+  <form action="" method="POST" name="author_add">
+    {{ form.csrf_token }}
+    <div class="field">
+    <label for="new_comment" class="label">Change Comment</label>
+    <div class="control is-one-quarter">
+      {{ form.text(required=True, autofocus=True,
+        class='input is-large',
+        placeholder='name') }}
+    </div>
+    {% for error in form.text.errors %}
+    <p class="help has-background-warning">
+        {{ error }}
+    </p>
+    {% endfor %}
+    </div>
+
+    <div class="field is-grouped">
+    <div class="control">
+      <button class="button is-primary is-small">Save Comment</button>
+    </div>
+    </div>
+  </form>
+  </div>
+{% endblock %}
