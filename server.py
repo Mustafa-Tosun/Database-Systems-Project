@@ -14,7 +14,7 @@ from views.comment import comment_delete, comment_delete_author, comment_edit_pa
 from views.favorite import favorite_page
 from views.vote import votes_page
 
-from models.user import get_user_by_id
+from tables.user import get_user_by_id
 
 lm = LoginManager()
 
