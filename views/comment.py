@@ -31,7 +31,7 @@ def comment_add_author(author_id):
 @login_required
 def comment_delete(poem_id, id):
     user_id = get_user_id_of_comment(id)
-    if not current_user.is_admin or current_user.id != user_id:
+    if (not current_user.is_admin) and current_user.id != user_id:
         abort(401)
     delete_comment(id)
     return redirect(url_for("poem_page", id=poem_id))
@@ -39,7 +39,7 @@ def comment_delete(poem_id, id):
 @login_required
 def comment_delete_author(author_id, id):
     user_id = get_user_id_of_comment(id)
-    if not current_user.is_admin or current_user.id != user_id:
+    if (not current_user.is_admin) and current_user.id != user_id:
         abort(401)
     delete_comment(id)
     return redirect(url_for("author_page", id=author_id))

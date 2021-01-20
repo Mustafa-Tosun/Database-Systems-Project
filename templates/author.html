@@ -63,7 +63,6 @@
                 </form>
                 {% endif %}
                 <button class="delete delete_comment" name="delete_comment" value="{{comment.text}}" id="{{comment.id}}"></button>
-              </form>
             </div>
             {% endif %}
           </article>
@@ -95,8 +94,9 @@
             </div>
           </article>
       </form>
+      {% endif %}
     </div>
-    {% endif %}
+
   </div>
 
   {% if current_user.is_admin %}

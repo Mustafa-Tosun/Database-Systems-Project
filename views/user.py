@@ -21,6 +21,8 @@ def home_page():
     return render_template("home.html", top_poems=top_poems, newest_poems=newest_poems, top_authors=top_authors, newest_authors=newest_authors)
 
 def login_page():
+    if current_user.is_authenticated:
+        return redirect(url_for("home_page"))
     form = LoginForm()
     if form.validate_on_submit():
         email = form.data["email"]
@@ -36,6 +38,8 @@ def login_page():
     return render_template("login.html", form=form)
 
 def register_page():
+    if current_user.is_authenticated:
+        return redirect(url_for("home_page"))
     form = RegisterForm()
     if form.validate_on_submit():
         email1 = form.data["email1"]
