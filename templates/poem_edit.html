@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
 {% block title %}Edit Poem{% endblock %}
 {% block content %}
-    <h1 class="title has-text-centered">Edit Poem</h1>
-<div class="column is-4 is-offset-4">
+  <h1 class="title has-text-centered">Edit Poem</h1>
+  <div class="column is-4 is-offset-4">
     <form action="" method="POST" name="poem_add">
       {{ form.csrf_token }}
       <div class="field">
@@ -44,5 +44,5 @@
         </div>
       </div>
     </form>
-</div>
+  </div>
 {% endblock %}
